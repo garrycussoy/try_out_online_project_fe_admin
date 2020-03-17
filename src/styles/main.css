@@ -1,0 +1,26 @@
+/* ---------- General Notes ---------- */
+/* Use the following colour pallete (the order is sorted from the brighter to darker) */
+/* 1. #DFF6F0 */
+/* 2. #46B3E6 */
+/* 3. #4D80E4 */
+/* 4. #2E279D */
+
+/* ---------- Login Session ---------- */
+.login-form-container {
+    margin-top: 180px;
+    padding: 20px 20px 10px 20px;
+    border-radius: 15px;
+    background-color: #46B3E6;
+    color: #2E279D;
+    text-align: center;
+}
+
+.login-admin-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.login-form-input {
+    margin: 20px 0;
+}
