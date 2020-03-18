@@ -5,6 +5,39 @@
 /* 3. #4D80E4 */
 /* 4. #2E279D */
 
+/* ---------- Header ---------- */
+.header {
+    background-color: #46B3E6;
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.35);
+}
+
+.logo-in-header {
+    width: 80%;
+    margin: 10px 15px;
+}
+
+.tabs-container-ul {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.tabs-container-ul li {
+    display: inline-block;
+    margin: 27px 15px 25px 15px;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.tab-in-header {
+    color: #2E279D;
+}
+
+.tab-in-header:hover {
+    text-decoration: none;
+    color: #DFF6F0;
+}
+
 /* ---------- Login Session ---------- */
 .login-form-container {
     margin-top: 180px;
@@ -13,6 +46,7 @@
     background-color: #46B3E6;
     color: #2E279D;
     text-align: center;
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.35);
 }
 
 .login-admin-title {

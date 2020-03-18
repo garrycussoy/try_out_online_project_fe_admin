@@ -58,7 +58,7 @@ class LoginPage extends React.Component {
            */
           store.setState({isLogin: true});
           localStorage.setItem('token', response.data.token)
-          this.props.history.push('/')
+          this.props.history.push('/problem-collection')
           Swal.fire({
             title: 'Login berhasil',
             text: 'Selamat datang tuan ' + this.props.username,

@@ -11,7 +11,12 @@ const initialState = {
   // Login related
   username: "",
   password: "",
-  isLogin: false
+  isLogin: true,
+
+  // Problem collection page
+  problemCollectionPage: 1,
+  problemCollectionTopic: "Semua Topik",
+  problemCollectionLevel: "Semua Level"
 };
 
 export const store = createStore(initialState);
