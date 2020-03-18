@@ -56,7 +56,7 @@ class LoginPage extends React.Component {
            * 3. Redirect to Problem Collection page
            * 4. Give success message
            */
-          store.setState({isLogin: true});
+          store.setState({isLogin: true, currentPage: "problem-collection-page"});
           localStorage.setItem('token', response.data.token)
           this.props.history.push('/problem-collection')
           Swal.fire({
@@ -108,5 +108,5 @@ class LoginPage extends React.Component {
   }
 };
 
-export default connect("username, password, isLogin, baseUrl", actions)(withRouter(LoginPage));
+export default connect("username, password, isLogin, baseUrl, currentPage", actions)(withRouter(LoginPage));
   

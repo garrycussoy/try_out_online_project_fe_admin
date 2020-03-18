@@ -17,6 +17,10 @@ import mathemaniacLogo from "../images/mathemaniacLogo.jpg";
  * @param {object} props This object contains all props needed that are stored in MainStore.js file 
  */
 const Header = props => {
+  // Define variable for currentPage props
+  let currentPage = props.currentPage;
+  
+  // Return the view of problem collection page
   return (
     <React.Fragment>
       <header className = "header">
@@ -29,13 +33,19 @@ const Header = props => {
             <div className = "col-md-4 col-12 tabs-container-div">
               <ul className = "tabs-container-ul">
                 <li>
-                  <Link className = "tab-in-header" to = "/">Koleksi Soal</Link>
+                  {currentPage === "problem-collection-page" ?
+                  <Link className = "tab-in-header active-tab" to = "/problem-collection">Koleksi Soal</Link> :
+                  <Link className = "tab-in-header" to = "/problem-collection">Koleksi Soal</Link>
+                  }
                 </li>
                 <li>
-                  <Link className = "tab-in-header" to = "/">Koleksi Tes</Link>
+                  {currentPage === "test-collection-page" ?
+                  <Link className = "tab-in-header active-tab" to = "/test-collection">Koleksi Tes</Link> :
+                  <Link className = "tab-in-header" to = "/test-collection">Koleksi Tes</Link>
+                  }
                 </li>
                 <li>
-                  <Link className = "tab-in-header" to = "/login">Logout</Link>
+                  <Link onClick = {e => props.handleLogout()} className = "tab-in-header" to = "/login">Logout</Link>
                 </li>
               </ul>
             </div>
@@ -46,4 +56,4 @@ const Header = props => {
   )
 }
 
-export default connect("isOwner", actions)(withRouter(Header));
+export default connect("currentPage", actions)(withRouter(Header));

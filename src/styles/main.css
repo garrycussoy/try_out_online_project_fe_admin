@@ -38,6 +38,10 @@
     color: #DFF6F0;
 }
 
+.active-tab {
+    color: #DFF6F0;
+}
+
 /* ---------- Login Session ---------- */
 .login-form-container {
     margin-top: 180px;

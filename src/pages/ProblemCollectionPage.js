@@ -76,5 +76,5 @@ class ProblemCollectionPage extends React.Component {
 };
 
 export default connect(
-  "problemCollectionPage, problemCollectionTopic, problemCollectionLevel, isLogin, baseUrl", actions
+  "problemCollectionPage, problemCollectionTopic, problemCollectionLevel, isLogin, baseUrl, currentPage", actions
 )(withRouter(ProblemCollectionPage));
