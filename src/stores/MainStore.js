@@ -8,10 +8,14 @@ const initialState = {
   // Base URL for backend API
   baseUrl: "http://localhost:5000/",
   
+  // General props than often used accross pages
+  availableTopics: [],
+  availableLevels: ["SBMPTN", "Olimpiade SMA", "Olimpiade SMP"],
+
   // Login related
   username: "",
   password: "",
-  isLogin: false,
+  isLogin: true,
 
   // Everything related with header
   currentPage: "problem-collection-page",
@@ -19,7 +23,8 @@ const initialState = {
   // Problem collection page
   problemCollectionPage: 1,
   problemCollectionTopic: "Semua Topik",
-  problemCollectionLevel: "Semua Level"
+  problemCollectionLevel: "Semua Level",
+  problemCollection: []
 };
 
 export const store = createStore(initialState);

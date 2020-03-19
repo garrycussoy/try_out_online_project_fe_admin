@@ -9,6 +9,7 @@
 .header {
     background-color: #46B3E6;
     box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.35);
+    position: sticky;
 }
 
 .logo-in-header {
@@ -61,4 +62,50 @@
 
 .login-form-input {
     margin: 20px 0;
+}
+
+.login-button {
+    font-size: 16px;
+    color: #DFF6F0;
+}
+
+/* ---------- Problem Collection Page ---------- */
+.second-header-container {
+    border-bottom: 1px solid #2E279D;
+    padding-bottom: 10px;
+}
+
+.search-bar {
+    margin-top: 15px;
+    margin-right: 10px;
+    font-size: 16px;
+    color: #2E279D;
+    width: 200px !important;
+}
+
+.problem-collection-title-container {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.problem-collection-title {
+    font-size: 20px;
+    margin: 1px 0;
+    color: #2E279D;
+}
+
+.page-detail {
+    font-size: 16px;
+    margin: 1px 0;
+    color: #2E279D;
+}
+
+.add-problem-button-container {
+    margin-top: 15px;
+    text-align: right;
+}
+
+.add-problem-button {
+    font-size: 16px;
+    color: #DFF6F0;
 }
