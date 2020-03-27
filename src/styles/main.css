@@ -109,3 +109,69 @@
     font-size: 16px;
     color: #DFF6F0;
 }
+
+/* ----- Each Problems Container in Problem Collection Page ----- */
+.each-problem-container {
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    color: #2E279D;
+    font-size: 14px;
+    border-bottom: 1px solid #2E279D;
+}
+
+.each-problem-information {
+    margin-bottom: 10px;
+}
+
+.each-problem-information span {
+    font-weight: 700;
+}
+
+.each-problem-statement {
+    margin-bottom: 10px;
+}
+
+.each-answer {
+    font-weight: 700;
+    color: green;
+}
+
+.each-other-option {
+    font-weight: 700;
+}
+
+/* ----- Pagination ----- */
+.pagination-container {
+    margin-top: 10px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.footer-container img:hover {
+    cursor: pointer;
+}
+
+.footer-container span {
+    font-size: 14px;
+    color: #2E279D;
+}
+
+.pagination-icon {
+    width: 1%;
+}
+
+.page-information {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.problem-not-found-container {
+    margin-top: 150px;
+}
+
+.problem-not-found  {
+    font-size: 16px;
+    color: #2E279D;
+}

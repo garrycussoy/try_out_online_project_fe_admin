@@ -22,6 +22,8 @@ const initialState = {
 
   // Problem collection page
   problemCollectionPage: 1,
+  problemCollectionMaxPage: 1,
+  problemCollectionTotalProblems: 0, 
   problemCollectionTopic: "Semua Topik",
   problemCollectionLevel: "Semua Level",
   problemCollection: []
