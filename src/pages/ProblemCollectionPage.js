@@ -12,7 +12,9 @@ import Latex from "react-latex";
 // Import everything related to style
 import "../styles/bootstrap.min.css";
 import "../styles/main.css";
-import searchIcon from "../images/search.png";
+import lookIcon from "../images/search.png";
+import editIcon from "../images/edit.png";
+import removeIcon from "../images/bin.png";
 import previous from "../images/back.png";
 import next from "../images/next.png";
 
@@ -117,6 +119,83 @@ class ProblemCollectionPage extends React.Component {
   }
 
   /**
+   * The following method is designed to remove selected problem
+   * @param {int} problemId ID of selected problem which will be removed
+   */
+  removeProblemButton = async (problemId) => {
+    /**
+       * Hit related API to remove selected problem
+       */
+    // Define object that will be passed as an argument to axios function
+    const axiosArgs = {
+      method: "delete",
+      url: this.props.baseUrl + "problem/" + problemId,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      },
+      validateStatus: (status) => {
+        return status < 500
+      }
+    };
+
+    // Hit related API (passed axiosArgs as the argument) and manage the response
+    await axios(axiosArgs)
+    .then(async (response) => {
+      /**
+       * Hit related API to get all information needed to be shown in problem collection page after removing
+       * a problem
+       */
+      // Define object that will be passed as an argument to axios function
+      const axiosArgs = {
+        method: "get",
+        url: this.props.baseUrl + "problem-collection",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+        params: {
+          page: 1,
+          topic: this.props.problemCollectionTopic,
+          level: this.props.problemCollectionLevel
+        },
+        validateStatus: (status) => {
+          return status < 500
+        }
+      };
+
+      // Hit related API (passed axiosArgs as the argument) and manage the response
+      await axios(axiosArgs)
+      .then(async (response) => {
+        // Set the store using the data returned by the API
+        store.setState({
+          problemCollection: response.data.problems_list,
+          problemCollectionLevel: response.data.level_chosen,
+          problemCollectionTopic: response.data.topic_chosen,
+          problemCollectionPage: 1,
+          problemCollectionMaxPage: response.data.max_page,
+          problemCollectionTotalProblems: response.data.total_problems
+        })
+
+        // Give success message
+        await Swal.fire({
+          title: 'Berhasil',
+          text: 'Soal dengan ID ' + problemId + ' telah terhapus',
+          icon: 'success',
+          timer: 3000,
+          confirmButtonText: 'OK'
+        })
+      })
+      .catch(error => {
+        console.warn(error);
+      });
+    })
+    .catch(error => {
+      console.warn(error);
+    });
+  }
+
+  /**
    * The following method is designed to handle next button
    */
   nextButton = async () => {
@@ -154,6 +233,7 @@ class ProblemCollectionPage extends React.Component {
       store.setState({
         problemCollection: response.data.problems_list,
         problemCollectionLevel: response.data.level_chosen,
+        problemCollectionTopic: response.data.topic_chosen,
         problemCollectionPage: currentPage,
         problemCollectionMaxPage: response.data.max_page,
         problemCollectionTotalProblems: response.data.total_problems
@@ -202,6 +282,7 @@ class ProblemCollectionPage extends React.Component {
       store.setState({
         problemCollection: response.data.problems_list,
         problemCollectionLevel: response.data.level_chosen,
+        problemCollectionTopic: response.data.topic_chosen,
         problemCollectionPage: currentPage,
         problemCollectionMaxPage: response.data.max_page,
         problemCollectionTotalProblems: response.data.total_problems
@@ -305,7 +386,11 @@ class ProblemCollectionPage extends React.Component {
                 <span>Level : {problem.level}</span><br />
                 <span>Topik : {problem.topic}</span>
               </div>
-              <div className = "col-md-6 col-12"></div>
+              <div className = "col-md-6 col-12 each-problem-icons">
+                <img src = {lookIcon} />
+                <img src = {editIcon} />
+                <img onClick = {() => this.removeProblemButton(problem.id)} src = {removeIcon} />
+              </div>
               <div className = "col-12 each-problem-statement">
                 <Latex>{problem.content}</Latex>     
               </div>

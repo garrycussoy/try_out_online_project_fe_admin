@@ -129,6 +129,16 @@
     font-weight: 700;
 }
 
+.each-problem-icons {
+    text-align: right;
+}
+
+.each-problem-icons img {
+    cursor: pointer;
+    width: 4%;
+    margin-left: 15px;
+}
+
 .each-problem-statement {
     margin-bottom: 10px;
 }
