@@ -119,6 +119,22 @@ class ProblemCollectionPage extends React.Component {
   }
 
   /**
+   * The following method is designed to look the detail of selected problem
+   * @param {int} problemId ID of selected problem
+   */
+  problemDetailButton = (problemId) => {
+    this.props.history.push('/problem/detail/' + problemId)
+  }
+
+  /**
+   * The following method is designed to redirect the page into "Edit Problem" page
+   * @param {int} problemId ID of selected problem
+   */
+  editProblemButton = (problemId) => {
+    this.props.history.push('/problem/edit/' + problemId)
+  }
+
+  /**
    * The following method is designed to remove selected problem
    * @param {int} problemId ID of selected problem which will be removed
    */
@@ -387,8 +403,8 @@ class ProblemCollectionPage extends React.Component {
                 <span>Topik : {problem.topic}</span>
               </div>
               <div className = "col-md-6 col-12 each-problem-icons">
-                <img src = {lookIcon} />
-                <img src = {editIcon} />
+                <img onClick = {() => this.problemDetailButton(problem.id)} src = {lookIcon} />
+                <img onClick = {() => this.editProblemButton(problem.id)} src = {editIcon} />
                 <img onClick = {() => this.removeProblemButton(problem.id)} src = {removeIcon} />
               </div>
               <div className = "col-12 each-problem-statement">
