@@ -9,6 +9,7 @@ import { store } from "../stores/MainStore";
 
 // Import from other modules
 import LoginPage from "../pages/LoginPage";
+import ProblemCollectionPage from "../pages/ProblemCollectionPage";
 
 /**
  * The following function is used for routing
@@ -19,6 +20,7 @@ const Mainroute = () => {
       <BrowserRouter>
         <Switch>
           <Route exact path = "/login" component = {LoginPage} />
+          <Route exact path = "/problem-collection" component = {ProblemCollectionPage} />
         </Switch>
       </BrowserRouter>
     </Provider>

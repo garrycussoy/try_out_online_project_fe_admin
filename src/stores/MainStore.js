@@ -8,10 +8,25 @@ const initialState = {
   // Base URL for backend API
   baseUrl: "http://localhost:5000/",
   
+  // General props than often used accross pages
+  availableTopics: [],
+  availableLevels: ["SBMPTN", "Olimpiade SMA", "Olimpiade SMP"],
+
   // Login related
   username: "",
   password: "",
-  isLogin: false
+  isLogin: true,
+
+  // Everything related with header
+  currentPage: "problem-collection-page",
+
+  // Problem collection page
+  problemCollectionPage: 1,
+  problemCollectionMaxPage: 1,
+  problemCollectionTotalProblems: 0, 
+  problemCollectionTopic: "Semua Topik",
+  problemCollectionLevel: "Semua Level",
+  problemCollection: []
 };
 
 export const store = createStore(initialState);
@@ -24,5 +39,24 @@ export const actions = store => ({
    */
   handleOnChange: (state, event) => {
     store.setState({[event.target.name]: event.target.value})
+  },
+
+  /**
+   * The following function is designed to handle logout section
+   */
+  handleLogout: (state) => {
+    // Give success message
+    Swal.fire({
+      title: 'Logout berhasil',
+      icon: 'success',
+      timer: 3000,
+      confirmButtonText: 'OK'
+    })
+
+    // Reset all props to default
+    store.setState(initialState);
+
+    // Remove token from local storage
+    localStorage.removeItem("token");
   }
 });

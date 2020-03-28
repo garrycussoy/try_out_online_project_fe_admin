@@ -56,9 +56,9 @@ class LoginPage extends React.Component {
            * 3. Redirect to Problem Collection page
            * 4. Give success message
            */
-          store.setState({isLogin: true});
+          store.setState({isLogin: true, currentPage: "problem-collection-page"});
           localStorage.setItem('token', response.data.token)
-          this.props.history.push('/')
+          this.props.history.push('/problem-collection')
           Swal.fire({
             title: 'Login berhasil',
             text: 'Selamat datang tuan ' + this.props.username,
@@ -97,7 +97,7 @@ class LoginPage extends React.Component {
               <form className = "form-group" onSubmit = {e => e.preventDefault(e)}>
                 <input onChange = {e => this.props.handleOnChange(e)} name = "username" className = "form-control form-control-sm login-form-input" type = "text" placeholder = "Username" aria-label = "Username"/>
                 <input onChange = {e => this.props.handleOnChange(e)} name = "password" className = "form-control form-control-sm login-form-input" type = "password" placeholder = "Password" aria-label = "Password"/>
-                <button onClick = {e => this.handleLogin(e)} type = "submit" className = "btn btn-primary">Login</button>              
+                <button onClick = {e => this.handleLogin(e)} type = "submit" className = "btn btn-primary login-button">Login</button>
               </form>
             </div>
             <div className = "col-md-4 col-1"></div>
@@ -108,5 +108,5 @@ class LoginPage extends React.Component {
   }
 };
 
-export default connect("username, password, isLogin, baseUrl", actions)(withRouter(LoginPage));
+export default connect("username, password, isLogin, baseUrl, currentPage", actions)(withRouter(LoginPage));
   
