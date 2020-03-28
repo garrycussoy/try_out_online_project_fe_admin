@@ -123,6 +123,11 @@ class ProblemCollectionPage extends React.Component {
    * @param {int} problemId ID of selected problem
    */
   problemDetailButton = (problemId) => {
+    // Set some props
+    store.setState({
+      currentPage: "problem-detail-page"
+    })
+    // Redirect to problem collection page
     this.props.history.push('/problem/detail/' + problemId)
   }
 
