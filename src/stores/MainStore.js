@@ -26,7 +26,20 @@ const initialState = {
   problemCollectionTotalProblems: 0, 
   problemCollectionTopic: "Semua Topik",
   problemCollectionLevel: "Semua Level",
-  problemCollection: []
+  problemCollection: [],
+
+  // Problem detail page
+  problemDetailId: 1,
+  problemDetailType: "Isian Singkat",
+  problemDetailLevel: "",
+  problemDetailTopic: "",
+  problemDetailContent: "",
+  problemDetailAnswer: "",
+  problemDetailSolution: "",
+  problemDetailFirstOption: null,
+  problemDetailSecondOption: null,
+  problemDetailThirdOption: null,
+  problemDetailFourthOption: null
 };
 
 export const store = createStore(initialState);
