@@ -333,3 +333,18 @@
 .add-problem-input-other-option {
     margin-top: 45px;
 }
+
+/* ----- Fourth Layer ----- */
+.add-problem-fifth-layer {
+    padding: 20px 10px 20px 10px;
+    font-size: 14px;
+    color: #2E279D;
+    text-align: center;
+}
+
+.add-problem-fifth-layer button {
+    margin: 0 10px;
+    width: 100px;
+    font-size: 14px;
+    color: #DFF6F0;
+}

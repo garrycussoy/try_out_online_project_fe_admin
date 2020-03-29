@@ -117,6 +117,10 @@ class AddProblemPage extends React.Component {
                         </div>
                       </div>
                     </div>
+                    <div className = "col-12 add-problem-fifth-layer">
+                      <button className = "btn btn-danger" type = "submit">Batal</button>
+                      <button className = "btn btn-primary" type = "submit">Simpan</button>
+                    </div>
                   </div>
                 </div>
               </form>
