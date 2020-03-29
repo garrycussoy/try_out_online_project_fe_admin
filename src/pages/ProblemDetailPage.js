@@ -12,11 +12,6 @@ import Latex from "react-latex";
 // Import everything related to style
 import "../styles/bootstrap.min.css";
 import "../styles/main.css";
-import lookIcon from "../images/search.png";
-import editIcon from "../images/edit.png";
-import removeIcon from "../images/bin.png";
-import previous from "../images/back.png";
-import next from "../images/next.png";
 
 // Import from other modules
 import Header from "../components/Header";
