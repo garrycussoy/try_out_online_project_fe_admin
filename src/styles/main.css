@@ -284,23 +284,21 @@
 .add-problem-text-area textarea {
     resize: none;
     font-size: 14px;
-    width: 95%;
+    width: 100%;
     height: 300px;
 }
 
 .add-problem-preview label {
     font-weight: 700;
     padding: 10px 0;
-    margin-left: 25px;
 }
 
 .add-problem-content-preview, .add-problem-solution-preview {
-    width: 95%;
+    width: 100%;
     height: 300px;
     border: 1px solid #2E279D;
     border-radius: 5px;
     padding: 10px;
-    margin-left: 25px;
 }
 
 .add-problem-preview-button {
@@ -311,4 +309,27 @@
 .add-problem-preview-button button {
     font-size: 14px;
     color: #DFF6F0;
+}
+
+/* ----- Fourth Layer ----- */
+.add-problem-fourth-layer {
+    padding: 20px 10px 10px 10px;
+    font-size: 14px;
+    color: #2E279D;
+    border-bottom: 1px solid #2E279D;
+}
+
+.add-problem-option-container {
+    text-align: center;
+}
+
+.add-problem-input-option-answer {
+    width: 100%;
+    font-size: 14px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.add-problem-input-other-option {
+    margin-top: 45px;
 }

@@ -99,7 +99,23 @@ class AddProblemPage extends React.Component {
                       </div>
                     </div>
                     <div className = "col-12 add-problem-fourth-layer">
-                      
+                      <div className = "container-fluid">
+                        <div className = "row">
+                          <div className = "col-12 col-md-3 add-problem-option-container">
+                            <input className = "form-control add-problem-input-option-answer" type = "text" name = "addProblemAnswer" placeholder = "Jawaban"/>
+                            <input className = "form-control add-problem-input-option-answer" type = "text" name = "addProblemFirstOption" placeholder = "Pilihan 1"/>
+                          </div>
+                          <div className = "col-12 col-md-3 add-problem-option-container">
+                            <input className = "form-control add-problem-input-option-answer add-problem-input-other-option" type = "text" name = "addProblemSecondOption" placeholder = "Pilihan 2"/>
+                          </div>
+                          <div className = "col-12 col-md-3 add-problem-option-container">
+                            <input className = "form-control add-problem-input-option-answer add-problem-input-other-option" type = "text" name = "addProblemThirdOption" placeholder = "Pilihan 3"/>
+                          </div>
+                          <div className = "col-12 col-md-3 add-problem-option-container">
+                            <input className = "form-control add-problem-input-option-answer add-problem-input-other-option" type = "text" name = "addProblemFourthOption" placeholder = "Pilihan 4"/>
+                          </div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
