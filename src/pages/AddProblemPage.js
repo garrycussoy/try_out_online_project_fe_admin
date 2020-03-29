@@ -58,6 +58,48 @@ class AddProblemPage extends React.Component {
                     </div>
                   </div>
                 </div>
+                <div className = "container-fluid">
+                  <div className = "row">
+                    <div className = "col-12 add-problem-second-layer">
+                      <div className = "container-fluid">
+                        <div className = "row">
+                          <div className = "col-md-6 col-12 add-problem-text-area">
+                            <label for = "problem-content">Pernyataan Soal</label>
+                            <textarea className = "form-control" id = "problem-content" name = "addProblemContent"></textarea>
+                          </div>
+                          <div className = "col-md-6 col-12 add-problem-preview">
+                            <label for = "problem-content-preview">Pratinjau Soal</label>
+                            <p id = "problem-content-preview" className = "add-problem-content-preview">
+                              <Latex></Latex>
+                            </p>
+                          </div>
+                          <div className = "col-12 add-problem-preview-button">
+                            <button className = "btn btn-primary" type = "submit">Tinjau Soal</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <div className = "col-12 add-problem-third-layer">
+                      <div className = "container-fluid">
+                        <div className = "row">
+                          <div className = "col-md-6 col-12 add-problem-text-area">
+                            <label for = "problem-content">Pernyataan Soal</label>
+                            <textarea className = "form-control" id = "problem-content" name = "addProblemContent"></textarea>
+                          </div>
+                          <div className = "col-md-6 col-12 add-problem-preview">
+                            <label for = "problem-content-preview">Pratinjau Soal</label>
+                            <p id = "problem-content-preview" className = "add-problem-content-preview">
+                              <Latex></Latex>
+                            </p>
+                          </div>
+                          <div className = "col-12 add-problem-preview-button">
+                            <button className = "btn btn-primary" type = "submit">Tinjau Soal</button>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </form>
             </div>
           </div>
