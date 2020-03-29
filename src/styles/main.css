@@ -268,8 +268,8 @@
     margin-right: 50px;
 }
 
-/* ----- Second Layer ----- */
-.add-problem-second-layer {
+/* ----- Second & Third Layer ----- */
+.add-problem-second-layer, .add-problem-third-layer {
     padding: 10px 10px 20px 10px;
     font-size: 14px;
     color: #2E279D;
@@ -294,7 +294,7 @@
     margin-left: 25px;
 }
 
-.add-problem-content-preview {
+.add-problem-content-preview, .add-problem-solution-preview {
     width: 95%;
     height: 300px;
     border: 1px solid #2E279D;
@@ -311,12 +311,4 @@
 .add-problem-preview-button button {
     font-size: 14px;
     color: #DFF6F0;
-}
-
-/* ----- Third Layer ----- */
-.add-problem-third-layer {
-    padding: 10px 10px 20px 10px;
-    font-size: 14px;
-    color: #2E279D;
-    border-bottom: 1px solid #2E279D;
 }

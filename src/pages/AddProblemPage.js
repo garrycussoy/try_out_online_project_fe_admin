@@ -83,20 +83,23 @@ class AddProblemPage extends React.Component {
                       <div className = "container-fluid">
                         <div className = "row">
                           <div className = "col-md-6 col-12 add-problem-text-area">
-                            <label for = "problem-content">Pernyataan Soal</label>
-                            <textarea className = "form-control" id = "problem-content" name = "addProblemContent"></textarea>
+                            <label for = "problem-solution">Solusi Lengkap</label>
+                            <textarea className = "form-control" id = "problem-solution" name = "addProblemSolution"></textarea>
                           </div>
                           <div className = "col-md-6 col-12 add-problem-preview">
-                            <label for = "problem-content-preview">Pratinjau Soal</label>
-                            <p id = "problem-content-preview" className = "add-problem-content-preview">
+                            <label for = "problem-solution-preview">Pratinjau Solusi</label>
+                            <p id = "problem-solution-preview" className = "add-problem-solution-preview">
                               <Latex></Latex>
                             </p>
                           </div>
                           <div className = "col-12 add-problem-preview-button">
-                            <button className = "btn btn-primary" type = "submit">Tinjau Soal</button>
+                            <button className = "btn btn-primary" type = "submit">Tinjau Solusi</button>
                           </div>
                         </div>
                       </div>
+                    </div>
+                    <div className = "col-12 add-problem-fourth-layer">
+                      
                     </div>
                   </div>
                 </div>
