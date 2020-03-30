@@ -12,16 +12,137 @@ import Latex from "react-latex";
 // Import everything related to style
 import "../styles/bootstrap.min.css";
 import "../styles/main.css";
-import lookIcon from "../images/search.png";
-import editIcon from "../images/edit.png";
-import removeIcon from "../images/bin.png";
-import previous from "../images/back.png";
-import next from "../images/next.png";
 
 /**
  * The following class is desingned to handle everything related to Add Problem page
  */
 class AddProblemPage extends React.Component {
+  /**
+   * The following function is designed to convert string into jsx latex
+   * @param {string} content The string that want to be converted into jsx latex
+   */
+  convertToLatex = content => {
+    // Define some variables needed
+    let currentState = null;
+    let contentLength = content.length;
+    let latexForm = "";
+
+    /**
+     * Convert the string into latex string
+     */
+    for (let index = 0; index < contentLength; index++) {
+      if (content[index] === "$" && currentState === null) {
+        if (index != contentLength - 1) {
+          if (content[index + 1] === "$") {
+            currentState = "$$";
+            index++;
+            latexForm = latexForm + "<Latex>$$";
+          } else {
+            currentState = "$";
+            latexForm = latexForm + "<Latex>$";
+          }
+        } else {
+          currentState = "$";
+          latexForm = latexForm + "<Latex>$";
+        }
+      } else if (content[index] === "$" && currentState === "$") {
+        currentState = null;
+        latexForm = latexForm + "$<Latex>";
+      } else if (content[index] === "$" && currentState === "$$") {
+        if (index != contentLength - 1) {
+          if (content[index + 1] == "$") {
+            currentState =  null;
+            index++;
+            latexForm = latexForm + "$$<Latex>";
+          } else {
+            latexForm = latexForm + content[index];
+          }
+        } else {
+          latexForm = latexForm + content[index];
+        }
+      } else {
+        latexForm = latexForm + content[index];
+      }
+    }
+
+    // Check final state
+    if (currentState === "$" || currentState === "$$") {
+      latexForm = latexForm + "<Latex>";
+    }
+
+    /**
+     * Turn latex string into jsx latex form
+     */
+    // Turn latex string into array
+    let latexArrayForm = latexForm.split("<Latex>");
+    
+    // Turn the array into latex jsx form
+    const jsxLatex = latexArrayForm.map(section => {
+      if (section.startsWith("$$")) {
+        return <Latex displayMode = {true}>{section}</Latex>
+      } else if (section.startsWith("$")) {
+        return <Latex>{section}</Latex>
+      } else {
+        return <span>{section}</span>
+      }
+    })
+    
+    return jsxLatex
+  }
+  
+  /**
+   * The following method is designed to show the preview of content
+   */
+  previewContent = async () => {
+    // Set the content preview props the same as content props
+    await store.setState({
+      addProblemContentPreview: this.props.addProblemContent
+    })
+  }
+
+  /**
+   * The following method is designed to show the preview of solution
+   */
+  previewSolution = () => {
+    // Set the solution preview props the same as solution props
+    store.setState({
+      addProblemSolutionPreview: this.props.addProblemSolution
+    })
+  }
+  
+  /**
+   * The following method is designed to handle cancel button
+   */
+  cancelButton = async () => {
+    // Set some props to the default
+    store.setState({
+      // Add problem page props
+      addProblemType: "Isian Singkat",
+      addProblemLevel: "SBMPTN",
+      addProblemTopic: "",
+      addProblemContent: "",
+      addProblemContentPreview: "",
+      addProblemAnswer: "",
+      addProblemSolution: "",
+      addProblemSolutionPreview: "",
+      addProblemFirstOption: null,
+      addProblemSecondOption: null,
+      addProblemThirdOption: null,
+      addProblemFourthOption: null,
+
+      // Problem collection page props
+      problemCollectionPage: 1,
+      problemCollectionTopic: "Semua Topik",
+      problemCollectionLevel: "Semua Level",
+
+      // Current page props
+      currentPage: "problem-collection-page"
+    })
+    
+    // Redirect to problem collection page
+    await this.props.history.push("/problem-collection")
+  }
+  
   /**
    * The following method is designed to render the view of add problem page
    */
@@ -32,7 +153,11 @@ class AddProblemPage extends React.Component {
         <option value = {level}>{level}</option>
       )
     })
-    
+
+    // Convert preview string into jsx latex form
+    let contentPreview = this.convertToLatex(this.props.addProblemContentPreview);
+    let solutionPreview = this.convertToLatex(this.props.addProblemSolutionPreview);
+
     // Return the view of add problem page
     return (
       <React.Fragment>
@@ -46,12 +171,12 @@ class AddProblemPage extends React.Component {
                 <div className = "container-fluid">
                   <div className = "row">
                     <div className = "col-12 add-problem-first-layer">
-                      <input className = "form-control add-problem-first-layer-input" type = "text" name = "addProblemTopic" placeholder = "Topik"/>
+                      <input onChange = {(e) => this.props.handleOnChange(e)} className = "form-control add-problem-first-layer-input" type = "text" name = "addProblemTopic" placeholder = "Topik"/>
                       <span>* Jika topik lebih dari satu, pisahkan dengan tanda koma</span>
-                      <select className = "form-control add-problem-first-layer-input" name = "addProblemLevel">
+                      <select onChange = {(e) => this.props.handleOnChange(e)} className = "form-control add-problem-first-layer-input" name = "addProblemLevel">
                         {availableLevels}
                       </select>
-                      <select className = "form-control add-problem-first-layer-input" name = "addProblemType">
+                      <select onChange = {(e) => this.props.handleOnChange(e)} className = "form-control add-problem-first-layer-input" name = "addProblemType">
                         <option value = "Isian Singkat">Isian Singkat</option>
                         <option value = "Isian Singkat">Plihan Ganda</option>
                       </select>
@@ -65,16 +190,16 @@ class AddProblemPage extends React.Component {
                         <div className = "row">
                           <div className = "col-md-6 col-12 add-problem-text-area">
                             <label for = "problem-content">Pernyataan Soal</label>
-                            <textarea className = "form-control" id = "problem-content" name = "addProblemContent"></textarea>
+                            <textarea onChange = {(e) => this.props.handleOnChange(e)} className = "form-control" id = "problem-content" name = "addProblemContent"></textarea>
                           </div>
                           <div className = "col-md-6 col-12 add-problem-preview">
                             <label for = "problem-content-preview">Pratinjau Soal</label>
                             <p id = "problem-content-preview" className = "add-problem-content-preview">
-                              <Latex></Latex>
+                              {contentPreview}
                             </p>
                           </div>
                           <div className = "col-12 add-problem-preview-button">
-                            <button className = "btn btn-primary" type = "submit">Tinjau Soal</button>
+                            <button onClick = {() => this.previewContent()} className = "btn btn-primary">Tinjau Soal</button>
                           </div>
                         </div>
                       </div>
@@ -84,16 +209,16 @@ class AddProblemPage extends React.Component {
                         <div className = "row">
                           <div className = "col-md-6 col-12 add-problem-text-area">
                             <label for = "problem-solution">Solusi Lengkap</label>
-                            <textarea className = "form-control" id = "problem-solution" name = "addProblemSolution"></textarea>
+                            <textarea onChange = {(e) => this.props.handleOnChange(e)} className = "form-control" id = "problem-solution" name = "addProblemSolution"></textarea>
                           </div>
                           <div className = "col-md-6 col-12 add-problem-preview">
                             <label for = "problem-solution-preview">Pratinjau Solusi</label>
                             <p id = "problem-solution-preview" className = "add-problem-solution-preview">
-                              <Latex></Latex>
+                              {solutionPreview}
                             </p>
                           </div>
                           <div className = "col-12 add-problem-preview-button">
-                            <button className = "btn btn-primary" type = "submit">Tinjau Solusi</button>
+                            <button onClick = {() => this.previewSolution()} className = "btn btn-primary">Tinjau Solusi</button>
                           </div>
                         </div>
                       </div>
@@ -102,23 +227,23 @@ class AddProblemPage extends React.Component {
                       <div className = "container-fluid">
                         <div className = "row">
                           <div className = "col-12 col-md-3 add-problem-option-container">
-                            <input className = "form-control add-problem-input-option-answer" type = "text" name = "addProblemAnswer" placeholder = "Jawaban"/>
-                            <input className = "form-control add-problem-input-option-answer" type = "text" name = "addProblemFirstOption" placeholder = "Pilihan 1"/>
+                            <input onChange = {(e) => this.props.handleOnChange(e)} className = "form-control add-problem-input-option-answer" type = "text" name = "addProblemAnswer" placeholder = "Jawaban"/>
+                            <input onChange = {(e) => this.props.handleOnChange(e)} className = "form-control add-problem-input-option-answer" type = "text" name = "addProblemFirstOption" placeholder = "Pilihan 1"/>
                           </div>
                           <div className = "col-12 col-md-3 add-problem-option-container">
-                            <input className = "form-control add-problem-input-option-answer add-problem-input-other-option" type = "text" name = "addProblemSecondOption" placeholder = "Pilihan 2"/>
+                            <input onChange = {(e) => this.props.handleOnChange(e)} className = "form-control add-problem-input-option-answer add-problem-input-other-option" type = "text" name = "addProblemSecondOption" placeholder = "Pilihan 2"/>
                           </div>
                           <div className = "col-12 col-md-3 add-problem-option-container">
-                            <input className = "form-control add-problem-input-option-answer add-problem-input-other-option" type = "text" name = "addProblemThirdOption" placeholder = "Pilihan 3"/>
+                            <input onChange = {(e) => this.props.handleOnChange(e)} className = "form-control add-problem-input-option-answer add-problem-input-other-option" type = "text" name = "addProblemThirdOption" placeholder = "Pilihan 3"/>
                           </div>
                           <div className = "col-12 col-md-3 add-problem-option-container">
-                            <input className = "form-control add-problem-input-option-answer add-problem-input-other-option" type = "text" name = "addProblemFourthOption" placeholder = "Pilihan 4"/>
+                            <input onChange = {(e) => this.props.handleOnChange(e)} className = "form-control add-problem-input-option-answer add-problem-input-other-option" type = "text" name = "addProblemFourthOption" placeholder = "Pilihan 4"/>
                           </div>
                         </div>
                       </div>
                     </div>
                     <div className = "col-12 add-problem-fifth-layer">
-                      <button className = "btn btn-danger" type = "submit">Batal</button>
+                      <button onClick = {() => this.cancelButton()} className = "btn btn-danger">Batal</button>
                       <button className = "btn btn-primary" type = "submit">Simpan</button>
                     </div>
                   </div>
@@ -132,6 +257,10 @@ class AddProblemPage extends React.Component {
   }
 }
 
+// Define variables that will be passed to connect method as an argument
+let addProblemPageProps = "addProblemType, addProblemLevel, addProblemTopic, addProblemContent, addProblemContentPreview, addProblemAnswer, addProblemSolution, addProblemSolutionPreview, addProblemFirstOption, addProblemSecondOption, addProblemThirdOption, addProblemFourthOption, ";
+let problemCollectionPageProps = "problemCollectionPage, problemCollectionMaxPage, problemCollectionTotalProblems, problemCollectionTopic, problemCollectionLevel, problemCollection, ";
+
 export default connect(
-    "isLogin, baseUrl, currentPage, availableLevels, problemCollectionPage, problemCollectionTopic, problemCollectionLevel", actions
+    addProblemPageProps + problemCollectionPageProps + "isLogin, baseUrl, currentPage, availableLevels", actions
   )(withRouter(AddProblemPage));

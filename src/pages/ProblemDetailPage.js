@@ -117,22 +117,22 @@ class ProblemDetailPage extends React.Component {
               {
                 this.props.problemDetailFirstOption == null ?
                 <span className = "problem-other-options"><br /></span>:
-                <span className = "problem-other-options">Pilihan 1 : {this.props.problemDetailFirstOption}<br /></span>
+                <span className = "problem-other-options">Pilihan 1 : <Latex>{this.props.problemDetailFirstOption}</Latex><br /></span>
               }
               {
                 this.props.problemDetailSecondOption == null ?
                 <span className = "problem-other-options"><br /></span>:
-                <span className = "problem-other-options">Pilihan 2 : {this.props.problemDetailSecondOption}<br /></span>
+                <span className = "problem-other-options">Pilihan 2 : <Latex>{this.props.problemDetailSecondOption}</Latex><br /></span>
               }
               {
                 this.props.problemDetailThirdOption == null ?
                 <span className = "problem-other-options"><br /></span>:
-                <span className = "problem-other-options">Pilihan 3 : {this.props.problemDetailThirdOption}<br /></span>
+                <span className = "problem-other-options">Pilihan 3 : <Latex>{this.props.problemDetailThirdOption}</Latex><br /></span>
               }
               {
                 this.props.problemDetailFourthOption == null ?
                 <span className = "problem-other-options"><br /></span>:
-                <span className = "problem-other-options">Pilihan 4 : {this.props.problemDetailFourthOption}<br /></span>
+                <span className = "problem-other-options">Pilihan 4 : <Latex>{this.props.problemDetailFourthOption}</Latex><br /></span>
               }
             </div>
             <div className = "col-12 problem-solution-container">

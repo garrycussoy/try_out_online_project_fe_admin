@@ -115,6 +115,32 @@ class ProblemCollectionPage extends React.Component {
    * The following method is designed to redirect the page to add problem page
    */
   addProblemButton = () => {
+    // Set some props to the default
+    store.setState({
+      // Add problem page props
+      addProblemType: "Isian Singkat",
+      addProblemLevel: "SBMPTN",
+      addProblemTopic: "",
+      addProblemContent: "",
+      addProblemContentPreview: "",
+      addProblemAnswer: "",
+      addProblemSolution: "",
+      addProblemSolutionPreview: "",
+      addProblemFirstOption: null,
+      addProblemSecondOption: null,
+      addProblemThirdOption: null,
+      addProblemFourthOption: null,
+
+      // Problem collection page props
+      problemCollectionPage: 1,
+      problemCollectionTopic: "Semua Topik",
+      problemCollectionLevel: "Semua Level",
+
+      // Current page props
+      currentPage: "add-problem-page"
+    })
+
+    // Redirect to add problem page
     this.props.history.push('/problem/add');
   }
 
@@ -490,6 +516,10 @@ class ProblemCollectionPage extends React.Component {
   }
 };
 
+// Define variables that will be passed to connect method as an argument
+let addProblemPageProps = "addProblemType, addProblemLevel, addProblemTopic, addProblemContent, addProblemContentPreview, addProblemAnswer, addProblemSolution, addProblemSolutionPreview, addProblemFirstOption, addProblemSecondOption, addProblemThirdOption, addProblemFourthOption, ";
+let problemCollectionPageProps = "problemCollectionPage, problemCollectionMaxPage, problemCollectionTotalProblems, problemCollectionTopic, problemCollectionLevel, problemCollection, ";
+
 export default connect(
-  "problemCollection, problemCollectionTotalProblems, availableTopics, availableLevels, problemCollectionPage, problemCollectionMaxPage, problemCollectionTopic, problemCollectionLevel, isLogin, baseUrl, currentPage", actions
+  problemCollectionPageProps + addProblemPageProps + "availableTopics, availableLevels, isLogin, baseUrl, currentPage", actions
 )(withRouter(ProblemCollectionPage));
