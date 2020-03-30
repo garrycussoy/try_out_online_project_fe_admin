@@ -26,6 +26,79 @@ import Header from "../components/Header";
  */
 class ProblemCollectionPage extends React.Component {
   /**
+   * The following function is designed to convert string into jsx latex
+   * @param {string} content The string that want to be converted into jsx latex
+   */
+  convertToLatex = content => {
+    // Define some variables needed
+    let currentState = null;
+    let contentLength = content.length;
+    let latexForm = "";
+
+    /**
+     * Convert the string into latex string
+     */
+    for (let index = 0; index < contentLength; index++) {
+      if (content[index] === "$" && currentState === null) {
+        if (index != contentLength - 1) {
+          if (content[index + 1] === "$") {
+            currentState = "$$";
+            index++;
+            latexForm = latexForm + "<Latex>$$";
+          } else {
+            currentState = "$";
+            latexForm = latexForm + "<Latex>$";
+          }
+        } else {
+          currentState = "$";
+          latexForm = latexForm + "<Latex>$";
+        }
+      } else if (content[index] === "$" && currentState === "$") {
+        currentState = null;
+        latexForm = latexForm + "$<Latex>";
+      } else if (content[index] === "$" && currentState === "$$") {
+        if (index != contentLength - 1) {
+          if (content[index + 1] == "$") {
+            currentState =  null;
+            index++;
+            latexForm = latexForm + "$$<Latex>";
+          } else {
+            latexForm = latexForm + content[index];
+          }
+        } else {
+          latexForm = latexForm + content[index];
+        }
+      } else {
+        latexForm = latexForm + content[index];
+      }
+    }
+
+    // Check final state
+    if (currentState === "$" || currentState === "$$") {
+      latexForm = latexForm + "<Latex>";
+    }
+
+    /**
+     * Turn latex string into jsx latex form
+     */
+    // Turn latex string into array
+    let latexArrayForm = latexForm.split("<Latex>");
+    
+    // Turn the array into latex jsx form
+    const jsxLatex = latexArrayForm.map(section => {
+      if (section.startsWith("$$")) {
+        return <Latex displayMode = {true}>{section}</Latex>
+      } else if (section.startsWith("$")) {
+        return <Latex>{section}</Latex>
+      } else {
+        return <span>{section}</span>
+      }
+    })
+    
+    return jsxLatex
+  }
+  
+  /**
    * The following method is designed to handle search by topic in problem collection page
    */
   searchByTopic = async (event) => {
@@ -126,10 +199,10 @@ class ProblemCollectionPage extends React.Component {
       addProblemAnswer: "",
       addProblemSolution: "",
       addProblemSolutionPreview: "",
-      addProblemFirstOption: null,
-      addProblemSecondOption: null,
-      addProblemThirdOption: null,
-      addProblemFourthOption: null,
+      addProblemFirstOption: "",
+      addProblemSecondOption: "",
+      addProblemThirdOption: "",
+      addProblemFourthOption: "",
 
       // Problem collection page props
       problemCollectionPage: 1,
@@ -439,24 +512,24 @@ class ProblemCollectionPage extends React.Component {
                 <img onClick = {() => this.removeProblemButton(problem.id)} src = {removeIcon} />
               </div>
               <div className = "col-12 each-problem-statement">
-                <Latex>{problem.content}</Latex>     
+                {this.convertToLatex(problem.content)}     
               </div>
               <div className = "col-12">
-                <span className = "each-answer">Jawaban : <Latex>{problem.answer}</Latex></span><br />
-                {problem.first_option != null ?
-                  <span className = "each-other-option">Pilihan 1 : <Latex>{problem.first_option}</Latex><br /></span>:
+                <span className = "each-answer">Jawaban : {this.convertToLatex(problem.answer)}</span><br />
+                {problem.first_option !== "" ?
+                  <span className = "each-other-option">Pilihan 1 : {this.convertToLatex(problem.first_option)}<br /></span>:
                   <span></span>
                 }
-                {problem.second_option != null ?
-                  <span className = "each-other-option">Pilihan 2 : <Latex>{problem.second_option}</Latex><br /></span>:
+                {problem.second_option !== "" ?
+                  <span className = "each-other-option">Pilihan 2 : {this.convertToLatex(problem.second_option)}<br /></span>:
                   <span></span>
                 }
-                {problem.third_option != null ?
-                  <span className = "each-other-option">Pilihan 3 : <Latex>{problem.third_option}</Latex><br /></span>:
+                {problem.third_option !== "" ?
+                  <span className = "each-other-option">Pilihan 3 : {this.convertToLatex(problem.third_option)}<br /></span>:
                   <span></span>
                 }
-                {problem.fourth_option != null ?
-                  <span className = "each-other-option">Pilihan 4 : <Latex>{problem.fourth_option}</Latex><br /></span>:
+                {problem.fourth_option !== "" ?
+                  <span className = "each-other-option">Pilihan 4 : {this.convertToLatex(problem.fourth_option)}<br /></span>:
                   <span></span>
                 }
               </div>

@@ -91,6 +91,94 @@ class AddProblemPage extends React.Component {
   }
   
   /**
+   * The following method is designed to handle the process of posting a new problem
+   */
+  postNewProblem = async () => {
+    /**
+      * Prepare some data that will be sent to backend
+      */
+    // Turn topic from csv format into array format
+    let topics = this.props.addProblemTopic.split(", ");
+
+    // Prepare options data
+    let firstOption = null;
+    let secondOption = null;
+    let thirdOption = null;
+    let fourthOption = null;
+    if (this.props.addProblemType === "Pilihan Ganda") {
+      firstOption = this.props.addProblemFirstOption;
+      secondOption = this.props.addProblemSecondOption;
+      thirdOption = this.props.addProblemThirdOption;
+      fourthOption = this.props.addProblemFourthOption;
+    }
+
+    /**
+      * Hit related API to post new problem into database
+      */
+    // Define object that will be passed as an argument to axios function
+    const axiosArgs = {
+      method: "post",
+      url: this.props.baseUrl + "problem",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      },
+      data: {
+        level: this.props.addProblemLevel,
+        topics: topics,
+        content: this.props.addProblemContent,
+        problem_type: this.props.addProblemType,
+        answer: this.props.addProblemAnswer,
+        first_option: firstOption,
+        second_option: secondOption,
+        third_option: thirdOption,
+        fourth_option: fourthOption,
+        explanation: this.props.addProblemSolution
+      },
+      validateStatus: (status) => {
+        return status < 500
+      }
+    };
+
+    // Hit related API (passed axiosArgs as the argument) and manage the response
+    await axios(axiosArgs)
+    .then(response => {
+      if (response.status === 200) {
+        // Set the store using the data returned by the API
+        store.setState({
+          problemCollectionTopic: "Semua Topik",
+          problemCollectionLevel: "Semua Level",
+          problemCollectionPage: 1,
+          currentPage: "problem-collection-page"
+        })
+
+        // Give success message
+        Swal.fire({
+          title: 'Sukses',
+          text: 'Berhasil menambahkan soal baru',
+          icon: 'success',
+          timer: 3000,
+          confirmButtonText: 'OK'
+        })
+
+        // Redirect to problem collection page
+        this.props.history.push("/problem-collection")
+      } else {
+        Swal.fire({
+          title: 'Gagal',
+          text: response.data.message,
+          icon: 'error',
+          timer: 3000,
+          confirmButtonText: 'OK'
+        })
+      }
+    })
+    .catch(error => {
+      console.warn(error);
+    });
+  }
+
+  /**
    * The following method is designed to show the preview of content
    */
   previewContent = async () => {
@@ -125,10 +213,10 @@ class AddProblemPage extends React.Component {
       addProblemAnswer: "",
       addProblemSolution: "",
       addProblemSolutionPreview: "",
-      addProblemFirstOption: null,
-      addProblemSecondOption: null,
-      addProblemThirdOption: null,
-      addProblemFourthOption: null,
+      addProblemFirstOption: "",
+      addProblemSecondOption: "",
+      addProblemThirdOption: "",
+      addProblemFourthOption: "",
 
       // Problem collection page props
       problemCollectionPage: 1,
@@ -178,7 +266,7 @@ class AddProblemPage extends React.Component {
                       </select>
                       <select onChange = {(e) => this.props.handleOnChange(e)} className = "form-control add-problem-first-layer-input" name = "addProblemType">
                         <option value = "Isian Singkat">Isian Singkat</option>
-                        <option value = "Isian Singkat">Plihan Ganda</option>
+                        <option value = "Pilihan Ganda">Plihan Ganda</option>
                       </select>
                     </div>
                   </div>
@@ -244,7 +332,7 @@ class AddProblemPage extends React.Component {
                     </div>
                     <div className = "col-12 add-problem-fifth-layer">
                       <button onClick = {() => this.cancelButton()} className = "btn btn-danger">Batal</button>
-                      <button className = "btn btn-primary" type = "submit">Simpan</button>
+                      <button onClick = {() => this.postNewProblem()} className = "btn btn-primary" type = "submit">Simpan</button>
                     </div>
                   </div>
                 </div>

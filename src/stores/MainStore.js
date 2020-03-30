@@ -36,10 +36,10 @@ const initialState = {
   problemDetailContent: "",
   problemDetailAnswer: "",
   problemDetailSolution: "",
-  problemDetailFirstOption: null,
-  problemDetailSecondOption: null,
-  problemDetailThirdOption: null,
-  problemDetailFourthOption: null,
+  problemDetailFirstOption: "",
+  problemDetailSecondOption: "",
+  problemDetailThirdOption: "",
+  problemDetailFourthOption: "",
 
   // Add problem page
   addProblemType: "Isian Singkat",
@@ -50,10 +50,10 @@ const initialState = {
   addProblemAnswer: "",
   addProblemSolution: "",
   addProblemSolutionPreview: "",
-  addProblemFirstOption: null,
-  addProblemSecondOption: null,
-  addProblemThirdOption: null,
-  addProblemFourthOption: null
+  addProblemFirstOption: "",
+  addProblemSecondOption: "",
+  addProblemThirdOption: "",
+  addProblemFourthOption: ""
 };
 
 export const store = createStore(initialState);

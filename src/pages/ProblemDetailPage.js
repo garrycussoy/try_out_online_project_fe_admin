@@ -21,6 +21,79 @@ import Header from "../components/Header";
  */
 class ProblemDetailPage extends React.Component {
   /**
+   * The following function is designed to convert string into jsx latex
+   * @param {string} content The string that want to be converted into jsx latex
+   */
+  convertToLatex = content => {
+    // Define some variables needed
+    let currentState = null;
+    let contentLength = content.length;
+    let latexForm = "";
+
+    /**
+     * Convert the string into latex string
+     */
+    for (let index = 0; index < contentLength; index++) {
+      if (content[index] === "$" && currentState === null) {
+        if (index != contentLength - 1) {
+          if (content[index + 1] === "$") {
+            currentState = "$$";
+            index++;
+            latexForm = latexForm + "<Latex>$$";
+          } else {
+            currentState = "$";
+            latexForm = latexForm + "<Latex>$";
+          }
+        } else {
+          currentState = "$";
+          latexForm = latexForm + "<Latex>$";
+        }
+      } else if (content[index] === "$" && currentState === "$") {
+        currentState = null;
+        latexForm = latexForm + "$<Latex>";
+      } else if (content[index] === "$" && currentState === "$$") {
+        if (index != contentLength - 1) {
+          if (content[index + 1] == "$") {
+            currentState =  null;
+            index++;
+            latexForm = latexForm + "$$<Latex>";
+          } else {
+            latexForm = latexForm + content[index];
+          }
+        } else {
+          latexForm = latexForm + content[index];
+        }
+      } else {
+        latexForm = latexForm + content[index];
+      }
+    }
+
+    // Check final state
+    if (currentState === "$" || currentState === "$$") {
+      latexForm = latexForm + "<Latex>";
+    }
+
+    /**
+     * Turn latex string into jsx latex form
+     */
+    // Turn latex string into array
+    let latexArrayForm = latexForm.split("<Latex>");
+    
+    // Turn the array into latex jsx form
+    const jsxLatex = latexArrayForm.map(section => {
+      if (section.startsWith("$$")) {
+        return <Latex displayMode = {true}>{section}</Latex>
+      } else if (section.startsWith("$")) {
+        return <Latex>{section}</Latex>
+      } else {
+        return <span>{section}</span>
+      }
+    })
+    
+    return jsxLatex
+  }
+  
+  /**
    * The following method is designed to redirect the page to problem-collection page
    */
   backButton = async () => {
@@ -99,6 +172,18 @@ class ProblemDetailPage extends React.Component {
    * The following method is designed to render the view of problem detail page
    */
   render() {    
+    /**
+     * Prepare some variables needed in jsx latex form
+     */
+    // Content of problem
+    let content = this.convertToLatex(this.props.problemDetailContent);
+    let answer = this.convertToLatex(this.props.problemDetailAnswer);
+    let solution = this.convertToLatex(this.props.problemDetailSolution);
+    let firstOption = this.convertToLatex(this.props.problemDetailFirstOption);
+    let secondOption = this.convertToLatex(this.props.problemDetailSecondOption);
+    let thirdOption = this.convertToLatex(this.props.problemDetailThirdOption);
+    let fourthOption = this.convertToLatex(this.props.problemDetailFourthOption);
+
     // Return the view of problem detail page
     return (
       <React.Fragment>
@@ -112,32 +197,32 @@ class ProblemDetailPage extends React.Component {
             </div>
             <div className = "col-12 problem-content-container">
               <span className = "problem-title">Soal</span><br />
-              <span className = "problem-content"><Latex>{this.props.problemDetailContent}</Latex></span><br />
-              <span className = "problem-answer">Jawaban : <Latex>{this.props.problemDetailAnswer}</Latex></span><br />
+              <span className = "problem-content">{content}</span><br />
+              <span className = "problem-answer">Jawaban : {answer}</span><br />
               {
-                this.props.problemDetailFirstOption == null ?
-                <span className = "problem-other-options"><br /></span>:
-                <span className = "problem-other-options">Pilihan 1 : <Latex>{this.props.problemDetailFirstOption}</Latex><br /></span>
+                this.props.problemDetailFirstOption === "" ?
+                <span className = "problem-other-options"></span>:
+                <span className = "problem-other-options">Pilihan 1 : {firstOption}<br /></span>
               }
               {
-                this.props.problemDetailSecondOption == null ?
-                <span className = "problem-other-options"><br /></span>:
-                <span className = "problem-other-options">Pilihan 2 : <Latex>{this.props.problemDetailSecondOption}</Latex><br /></span>
+                this.props.problemDetailSecondOption === "" ?
+                <span className = "problem-other-options"></span>:
+                <span className = "problem-other-options">Pilihan 2 : {secondOption}<br /></span>
               }
               {
-                this.props.problemDetailThirdOption == null ?
-                <span className = "problem-other-options"><br /></span>:
-                <span className = "problem-other-options">Pilihan 3 : <Latex>{this.props.problemDetailThirdOption}</Latex><br /></span>
+                this.props.problemDetailThirdOption === "" ?
+                <span className = "problem-other-options"></span>:
+                <span className = "problem-other-options">Pilihan 3 : {thirdOption}<br /></span>
               }
               {
-                this.props.problemDetailFourthOption == null ?
-                <span className = "problem-other-options"><br /></span>:
-                <span className = "problem-other-options">Pilihan 4 : <Latex>{this.props.problemDetailFourthOption}</Latex><br /></span>
+                this.props.problemDetailFourthOption === "" ?
+                <span className = "problem-other-options"></span>:
+                <span className = "problem-other-options">Pilihan 4 : {fourthOption}<br /></span>
               }
             </div>
             <div className = "col-12 problem-solution-container">
               <span className = "problem-title">Solusi</span><br />
-              <span className><Latex>{this.props.problemDetailSolution}</Latex></span><br />
+              <span className>{solution}</span><br />
             </div>
             <div className = "col-12 problem-back-button-container">
               <button onClick = {() => this.backButton()} type = "submit" className = "btn btn-primary problem-back-button">Kembali</button>
