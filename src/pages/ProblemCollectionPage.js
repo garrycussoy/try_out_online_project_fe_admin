@@ -262,53 +262,64 @@ class ProblemCollectionPage extends React.Component {
     // Hit related API (passed axiosArgs as the argument) and manage the response
     await axios(axiosArgs)
     .then(async (response) => {
-      /**
-       * Hit related API to get all information needed to be shown in problem collection page after removing
-       * a problem
-       */
-      // Define object that will be passed as an argument to axios function
-      const axiosArgs = {
-        method: "get",
-        url: this.props.baseUrl + "problem-collection",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`
-        },
-        params: {
-          page: 1,
-          topic: this.props.problemCollectionTopic,
-          level: this.props.problemCollectionLevel
-        },
-        validateStatus: (status) => {
-          return status < 500
-        }
-      };
+      if (response.status === 200) {
+        /**
+         * Hit related API to get all information needed to be shown in problem collection page after removing
+         * a problem
+         */
+        // Define object that will be passed as an argument to axios function
+        const axiosArgs = {
+          method: "get",
+          url: this.props.baseUrl + "problem-collection",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          },
+          params: {
+            page: 1,
+            topic: this.props.problemCollectionTopic,
+            level: this.props.problemCollectionLevel
+          },
+          validateStatus: (status) => {
+            return status < 500
+          }
+        };
 
-      // Hit related API (passed axiosArgs as the argument) and manage the response
-      await axios(axiosArgs)
-      .then(async (response) => {
-        // Set the store using the data returned by the API
-        store.setState({
-          problemCollection: response.data.problems_list,
-          problemCollectionLevel: response.data.level_chosen,
-          problemCollectionTopic: response.data.topic_chosen,
-          problemCollectionPage: 1,
-          problemCollectionMaxPage: response.data.max_page,
-          problemCollectionTotalProblems: response.data.total_problems
+        // Hit related API (passed axiosArgs as the argument) and manage the response
+        await axios(axiosArgs)
+        .then(async (response) => {
+          // Set the store using the data returned by the API
+          store.setState({
+            problemCollection: response.data.problems_list,
+            problemCollectionLevel: response.data.level_chosen,
+            problemCollectionTopic: response.data.topic_chosen,
+            problemCollectionPage: 1,
+            problemCollectionMaxPage: response.data.max_page,
+            problemCollectionTotalProblems: response.data.total_problems
+          })
+
+          // Give success message
+          await Swal.fire({
+            title: 'Berhasil',
+            text: 'Soal dengan ID ' + problemId + ' telah terhapus',
+            icon: 'success',
+            timer: 3000,
+            confirmButtonText: 'OK'
+          })
         })
-
-        // Give success message
+        .catch(error => {
+          console.warn(error);
+        });
+      } else {
+        // Give failure message
         await Swal.fire({
-          title: 'Berhasil',
-          text: 'Soal dengan ID ' + problemId + ' telah terhapus',
-          icon: 'success',
+          title: 'Gagal Menghapus Soal',
+          text: response.data.message,
+          icon: 'error',
           timer: 3000,
           confirmButtonText: 'OK'
         })
-      })
-      .catch(error => {
-        console.warn(error);
-      });
+      }
     })
     .catch(error => {
       console.warn(error);

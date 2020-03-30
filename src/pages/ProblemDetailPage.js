@@ -122,7 +122,9 @@ class ProblemDetailPage extends React.Component {
        * detail page
        */
       // Get the parameter in URL
-      let problemId = this.props.match.url.slice(16);
+      let matchUrlArray = this.props.match.url.split("/");
+      let matchUrlArrayLength = matchUrlArray.length;
+      let problemId = matchUrlArray[matchUrlArrayLength - 1];
 
       // Define object that will be passed as an argument to axios function
       const axiosArgs = {
