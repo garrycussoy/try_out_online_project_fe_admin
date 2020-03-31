@@ -36,10 +36,24 @@ const initialState = {
   problemDetailContent: "",
   problemDetailAnswer: "",
   problemDetailSolution: "",
-  problemDetailFirstOption: null,
-  problemDetailSecondOption: null,
-  problemDetailThirdOption: null,
-  problemDetailFourthOption: null
+  problemDetailFirstOption: "",
+  problemDetailSecondOption: "",
+  problemDetailThirdOption: "",
+  problemDetailFourthOption: "",
+
+  // Add problem page
+  addProblemType: "Isian Singkat",
+  addProblemLevel: "SBMPTN",
+  addProblemTopic: "",
+  addProblemContent: "",
+  addProblemContentPreview: "",
+  addProblemAnswer: "",
+  addProblemSolution: "",
+  addProblemSolutionPreview: "",
+  addProblemFirstOption: "",
+  addProblemSecondOption: "",
+  addProblemThirdOption: "",
+  addProblemFourthOption: ""
 };
 
 export const store = createStore(initialState);

@@ -26,6 +26,79 @@ import Header from "../components/Header";
  */
 class ProblemCollectionPage extends React.Component {
   /**
+   * The following function is designed to convert string into jsx latex
+   * @param {string} content The string that want to be converted into jsx latex
+   */
+  convertToLatex = content => {
+    // Define some variables needed
+    let currentState = null;
+    let contentLength = content.length;
+    let latexForm = "";
+
+    /**
+     * Convert the string into latex string
+     */
+    for (let index = 0; index < contentLength; index++) {
+      if (content[index] === "$" && currentState === null) {
+        if (index != contentLength - 1) {
+          if (content[index + 1] === "$") {
+            currentState = "$$";
+            index++;
+            latexForm = latexForm + "<Latex>$$";
+          } else {
+            currentState = "$";
+            latexForm = latexForm + "<Latex>$";
+          }
+        } else {
+          currentState = "$";
+          latexForm = latexForm + "<Latex>$";
+        }
+      } else if (content[index] === "$" && currentState === "$") {
+        currentState = null;
+        latexForm = latexForm + "$<Latex>";
+      } else if (content[index] === "$" && currentState === "$$") {
+        if (index != contentLength - 1) {
+          if (content[index + 1] == "$") {
+            currentState =  null;
+            index++;
+            latexForm = latexForm + "$$<Latex>";
+          } else {
+            latexForm = latexForm + content[index];
+          }
+        } else {
+          latexForm = latexForm + content[index];
+        }
+      } else {
+        latexForm = latexForm + content[index];
+      }
+    }
+
+    // Check final state
+    if (currentState === "$" || currentState === "$$") {
+      latexForm = latexForm + "<Latex>";
+    }
+
+    /**
+     * Turn latex string into jsx latex form
+     */
+    // Turn latex string into array
+    let latexArrayForm = latexForm.split("<Latex>");
+    
+    // Turn the array into latex jsx form
+    const jsxLatex = latexArrayForm.map(section => {
+      if (section.startsWith("$$")) {
+        return <Latex displayMode = {true}>{section}</Latex>
+      } else if (section.startsWith("$")) {
+        return <Latex>{section}</Latex>
+      } else {
+        return <span>{section}</span>
+      }
+    })
+    
+    return jsxLatex
+  }
+  
+  /**
    * The following method is designed to handle search by topic in problem collection page
    */
   searchByTopic = async (event) => {
@@ -115,6 +188,32 @@ class ProblemCollectionPage extends React.Component {
    * The following method is designed to redirect the page to add problem page
    */
   addProblemButton = () => {
+    // Set some props to the default
+    store.setState({
+      // Add problem page props
+      addProblemType: "Isian Singkat",
+      addProblemLevel: "SBMPTN",
+      addProblemTopic: "",
+      addProblemContent: "",
+      addProblemContentPreview: "",
+      addProblemAnswer: "",
+      addProblemSolution: "",
+      addProblemSolutionPreview: "",
+      addProblemFirstOption: "",
+      addProblemSecondOption: "",
+      addProblemThirdOption: "",
+      addProblemFourthOption: "",
+
+      // Problem collection page props
+      problemCollectionPage: 1,
+      problemCollectionTopic: "Semua Topik",
+      problemCollectionLevel: "Semua Level",
+
+      // Current page props
+      currentPage: "add-problem-page"
+    })
+
+    // Redirect to add problem page
     this.props.history.push('/problem/add');
   }
 
@@ -163,53 +262,64 @@ class ProblemCollectionPage extends React.Component {
     // Hit related API (passed axiosArgs as the argument) and manage the response
     await axios(axiosArgs)
     .then(async (response) => {
-      /**
-       * Hit related API to get all information needed to be shown in problem collection page after removing
-       * a problem
-       */
-      // Define object that will be passed as an argument to axios function
-      const axiosArgs = {
-        method: "get",
-        url: this.props.baseUrl + "problem-collection",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${localStorage.getItem("token")}`
-        },
-        params: {
-          page: 1,
-          topic: this.props.problemCollectionTopic,
-          level: this.props.problemCollectionLevel
-        },
-        validateStatus: (status) => {
-          return status < 500
-        }
-      };
+      if (response.status === 200) {
+        /**
+         * Hit related API to get all information needed to be shown in problem collection page after removing
+         * a problem
+         */
+        // Define object that will be passed as an argument to axios function
+        const axiosArgs = {
+          method: "get",
+          url: this.props.baseUrl + "problem-collection",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("token")}`
+          },
+          params: {
+            page: 1,
+            topic: this.props.problemCollectionTopic,
+            level: this.props.problemCollectionLevel
+          },
+          validateStatus: (status) => {
+            return status < 500
+          }
+        };
 
-      // Hit related API (passed axiosArgs as the argument) and manage the response
-      await axios(axiosArgs)
-      .then(async (response) => {
-        // Set the store using the data returned by the API
-        store.setState({
-          problemCollection: response.data.problems_list,
-          problemCollectionLevel: response.data.level_chosen,
-          problemCollectionTopic: response.data.topic_chosen,
-          problemCollectionPage: 1,
-          problemCollectionMaxPage: response.data.max_page,
-          problemCollectionTotalProblems: response.data.total_problems
+        // Hit related API (passed axiosArgs as the argument) and manage the response
+        await axios(axiosArgs)
+        .then(async (response) => {
+          // Set the store using the data returned by the API
+          store.setState({
+            problemCollection: response.data.problems_list,
+            problemCollectionLevel: response.data.level_chosen,
+            problemCollectionTopic: response.data.topic_chosen,
+            problemCollectionPage: 1,
+            problemCollectionMaxPage: response.data.max_page,
+            problemCollectionTotalProblems: response.data.total_problems
+          })
+
+          // Give success message
+          await Swal.fire({
+            title: 'Berhasil',
+            text: 'Soal dengan ID ' + problemId + ' telah terhapus',
+            icon: 'success',
+            timer: 3000,
+            confirmButtonText: 'OK'
+          })
         })
-
-        // Give success message
+        .catch(error => {
+          console.warn(error);
+        });
+      } else {
+        // Give failure message
         await Swal.fire({
-          title: 'Berhasil',
-          text: 'Soal dengan ID ' + problemId + ' telah terhapus',
-          icon: 'success',
+          title: 'Gagal Menghapus Soal',
+          text: response.data.message,
+          icon: 'error',
           timer: 3000,
           confirmButtonText: 'OK'
         })
-      })
-      .catch(error => {
-        console.warn(error);
-      });
+      }
     })
     .catch(error => {
       console.warn(error);
@@ -413,24 +523,24 @@ class ProblemCollectionPage extends React.Component {
                 <img onClick = {() => this.removeProblemButton(problem.id)} src = {removeIcon} />
               </div>
               <div className = "col-12 each-problem-statement">
-                <Latex>{problem.content}</Latex>     
+                {this.convertToLatex(problem.content)}     
               </div>
               <div className = "col-12">
-                <span className = "each-answer">Jawaban : <Latex>{problem.answer}</Latex></span><br />
-                {problem.first_option != null ?
-                  <span className = "each-other-option">Pilihan 1 : <Latex>{problem.first_option}</Latex><br /></span>:
+                <span className = "each-answer">Jawaban : {this.convertToLatex(problem.answer)}</span><br />
+                {problem.first_option !== "" ?
+                  <span className = "each-other-option">Pilihan 1 : {this.convertToLatex(problem.first_option)}<br /></span>:
                   <span></span>
                 }
-                {problem.second_option != null ?
-                  <span className = "each-other-option">Pilihan 2 : <Latex>{problem.second_option}</Latex><br /></span>:
+                {problem.second_option !== "" ?
+                  <span className = "each-other-option">Pilihan 2 : {this.convertToLatex(problem.second_option)}<br /></span>:
                   <span></span>
                 }
-                {problem.third_option != null ?
-                  <span className = "each-other-option">Pilihan 3 : <Latex>{problem.third_option}</Latex><br /></span>:
+                {problem.third_option !== "" ?
+                  <span className = "each-other-option">Pilihan 3 : {this.convertToLatex(problem.third_option)}<br /></span>:
                   <span></span>
                 }
-                {problem.fourth_option != null ?
-                  <span className = "each-other-option">Pilihan 4 : <Latex>{problem.fourth_option}</Latex><br /></span>:
+                {problem.fourth_option !== "" ?
+                  <span className = "each-other-option">Pilihan 4 : {this.convertToLatex(problem.fourth_option)}<br /></span>:
                   <span></span>
                 }
               </div>
@@ -490,6 +600,10 @@ class ProblemCollectionPage extends React.Component {
   }
 };
 
+// Define variables that will be passed to connect method as an argument
+let addProblemPageProps = "addProblemType, addProblemLevel, addProblemTopic, addProblemContent, addProblemContentPreview, addProblemAnswer, addProblemSolution, addProblemSolutionPreview, addProblemFirstOption, addProblemSecondOption, addProblemThirdOption, addProblemFourthOption, ";
+let problemCollectionPageProps = "problemCollectionPage, problemCollectionMaxPage, problemCollectionTotalProblems, problemCollectionTopic, problemCollectionLevel, problemCollection, ";
+
 export default connect(
-  "problemCollection, problemCollectionTotalProblems, availableTopics, availableLevels, problemCollectionPage, problemCollectionMaxPage, problemCollectionTopic, problemCollectionLevel, isLogin, baseUrl, currentPage", actions
+  problemCollectionPageProps + addProblemPageProps + "availableTopics, availableLevels, isLogin, baseUrl, currentPage", actions
 )(withRouter(ProblemCollectionPage));
