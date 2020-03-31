@@ -53,7 +53,24 @@ const initialState = {
   addProblemFirstOption: "",
   addProblemSecondOption: "",
   addProblemThirdOption: "",
-  addProblemFourthOption: ""
+  addProblemFourthOption: "",
+
+  // Edit problem page
+  editProblemId: "",
+  editProblemType: "Isian Singkat",
+  editProblemTypeOriginal: "Isian Singkat",
+  editProblemLevel: "SBMPTN",
+  editProblemLevelOriginal: "SBMPTN",
+  editProblemTopic: "",
+  editProblemContent: "",
+  editProblemContentPreview: "",
+  editProblemAnswer: "",
+  editProblemSolution: "",
+  editProblemSolutionPreview: "",
+  editProblemFirstOption: "",
+  editProblemSecondOption: "",
+  editProblemThirdOption: "",
+  editProblemFourthOption: ""
 };
 
 export const store = createStore(initialState);

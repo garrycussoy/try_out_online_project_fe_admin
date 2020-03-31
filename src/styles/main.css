@@ -251,6 +251,11 @@
     padding-bottom: 10px;
 }
 
+.edit-problem-id {
+    font-size: 16px;
+    font-weight: 700;
+}
+
 /* ----- First Layer ----- */
 .add-problem-first-layer {
     padding: 20px 10px 10px 25px;
