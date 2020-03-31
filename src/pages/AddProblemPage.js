@@ -99,12 +99,15 @@ class AddProblemPage extends React.Component {
       */
     // Turn topic from csv format into array format
     let topics = this.props.addProblemTopic.split(", ");
+    if (this.props.addProblemTopic === "") {
+      topics = [];
+    }
 
     // Prepare options data
-    let firstOption = null;
-    let secondOption = null;
-    let thirdOption = null;
-    let fourthOption = null;
+    let firstOption = "";
+    let secondOption = "";
+    let thirdOption = "";
+    let fourthOption = "";
     if (this.props.addProblemType === "Pilihan Ganda") {
       firstOption = this.props.addProblemFirstOption;
       secondOption = this.props.addProblemSecondOption;
@@ -144,7 +147,7 @@ class AddProblemPage extends React.Component {
     await axios(axiosArgs)
     .then(response => {
       if (response.status === 200) {
-        // Set the store using the data returned by the API
+        // Set some props related to problem collection page
         store.setState({
           problemCollectionTopic: "Semua Topik",
           problemCollectionLevel: "Semua Level",

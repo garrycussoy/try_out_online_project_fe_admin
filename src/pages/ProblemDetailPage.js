@@ -112,7 +112,6 @@ class ProblemDetailPage extends React.Component {
   /**
    * The following method is designed to prepare any information needed before the problem collection page is 
    * rendered
-   * @param {int} problemId ID of selected problem
    */
   componentDidMount = async () => {
     // Check whether the admin has already logged in or not
@@ -158,7 +157,7 @@ class ProblemDetailPage extends React.Component {
           problemDetailFourthOption: response.data.fourth_option,
           problemCollectionPage: 1,
           problemCollectionTopic: "Semua Topik",
-          problemCollectionLevel: "Semua Level",
+          problemCollectionLevel: "Semua Level"
         })
       })
       .catch(error => {
