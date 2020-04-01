@@ -13,6 +13,7 @@ import ProblemCollectionPage from "../pages/ProblemCollectionPage";
 import ProblemDetailPage from "../pages/ProblemDetailPage";
 import AddProblemPage from "../pages/AddProblemPage";
 import EditProblemPage from "../pages/EditProblemPage";
+import TestCollectionPage from "../pages/TestCollectionPage";
 
 /**
  * The following function is used for routing
@@ -27,6 +28,7 @@ const Mainroute = () => {
           <Route exact path = "/problem/detail/:problemId" component = {ProblemDetailPage} />
           <Route exact path = "/problem/add" component = {AddProblemPage} />
           <Route exact path = "/problem/edit/:problemId" component = {EditProblemPage} />
+          <Route exact path = "/test-collection" component = {TestCollectionPage} />
         </Switch>
       </BrowserRouter>
     </Provider>
