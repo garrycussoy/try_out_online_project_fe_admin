@@ -469,7 +469,8 @@ class ProblemCollectionPage extends React.Component {
 
           // Test collection page
           testCollection: [],
-          testCollectionName: ""
+          testCollectionName: "",
+          testCollectionKeyword: ""
         })
       })
       .catch(error => {
@@ -608,7 +609,7 @@ class ProblemCollectionPage extends React.Component {
 // Define variables that will be passed to connect method as an argument
 let addProblemPageProps = "addProblemType, addProblemLevel, addProblemTopic, addProblemContent, addProblemContentPreview, addProblemAnswer, addProblemSolution, addProblemSolutionPreview, addProblemFirstOption, addProblemSecondOption, addProblemThirdOption, addProblemFourthOption, ";
 let problemCollectionPageProps = "problemCollectionPage, problemCollectionMaxPage, problemCollectionTotalProblems, problemCollectionTopic, problemCollectionLevel, problemCollection, ";
-let testCollectionPageProps = "testCollection, testCollectionName, "
+let testCollectionPageProps = "testCollection, testCollectionName, testCollectionKeyword, "
 
 export default connect(
   problemCollectionPageProps + addProblemPageProps + testCollectionPageProps + "availableTopics, availableLevels, isLogin, baseUrl, currentPage", actions

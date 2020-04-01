@@ -24,6 +24,60 @@ import Header from "../components/Header";
  */
 class TestCollectionPage extends React.Component {
   /**
+   * The following method is designed to handle search by name process
+   */
+  searchByName = async () => {
+    // Define object that will be passed as an argument to axios function
+    const axiosArgs = {
+      method: "get",
+      url: this.props.baseUrl + "test",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      },
+      params: {
+        name: this.props.testCollectionName
+      },
+      validateStatus: (status) => {
+        return status < 500
+      }
+    };
+
+    // Hit related API (passed axiosArgs as the argument) and manage the response
+    await axios(axiosArgs)
+    .then(response => {
+      // Set the store using the data returned by the API
+      store.setState({
+        // Test collection props
+        testCollection: response.data,
+        testCollectionKeyword: this.props.testCollectionName
+      })
+    })
+    .catch(error => {
+      console.warn(error);
+    });
+  }
+  
+  /**
+   * The following method is designed to redirect the page to add test page
+   */
+  addTestButton = () => {
+    // Set some props to the default
+    store.setState({
+      // Test collection page props
+      testCollection: [],
+      testCollectionName: "",
+      testCollectionKeyword: "",
+
+      // Current page props
+      currentPage: "add-test-page"
+    })
+
+    // Redirect to test problem page
+    this.props.history.push('/test/add');
+  }
+  
+  /**
    * The following method is designed to redirect the page into test detail for selected test
    * @param {integer} testId Id of the selected test that we want to look the detail of
    */
@@ -33,6 +87,7 @@ class TestCollectionPage extends React.Component {
       // Test collection props
       testCollection: [],
       testCollectionName: "",
+      testCollectionKeyword: "",
 
       // Current page props
       currentPage: "test-detail-page"
@@ -150,6 +205,9 @@ class TestCollectionPage extends React.Component {
       </React.Fragment>
     )
 
+    // Define some variables needed
+    let totalTest = this.props.testCollection.length
+
     // Return the view of test collection page
     return (
       <React.Fragment>
@@ -158,15 +216,25 @@ class TestCollectionPage extends React.Component {
           <div className = "row test-collection-second-header-container">
             <div className = "col-md-4 col-12 test-collection-search-bar-container">
               <form className = "form-inline" onSubmit = {(e) => e.preventDefault(e)}>
-                <input className = "form-control test-collection-search-bar" name = "testCollectionName" type = "text" placeholder = "Nama Tes"></input>
-                <img src = {lookIcon} alt = "Search" />
+                <input onChange = {(e) => this.props.handleOnChange(e)} className = "form-control test-collection-search-bar" name = "testCollectionName" type = "text" placeholder = "Nama Tes"></input>
+                <img onClick = {() => this.searchByName()} src = {lookIcon} alt = "Search" />
               </form>
             </div>
             <div className = "col-md-4 col-12 test-collection-title-container">
-              KOLEKSI TES
+              <span className = "test-collection-title">KOLEKSI TES</span><br />
+                {
+                  this.props.testCollectionKeyword === "" ?
+                  <span className = "test-collection-below-title">
+                    Semua Tes
+                  </span>:
+                  <span className = "test-collection-below-title">
+                    Keyword : {this.props.testCollectionKeyword}
+                  </span>
+                }
+              <br /><span className = "test-collection-below-title">Total : {totalTest} Tes</span>
             </div>
             <div className = "col-md-4 col-12 add-test-button-container">
-              <button className = "btn btn-primary">Tambah Tes</button>
+              <button onClick = {() => this.addTestButton()} className = "btn btn-primary">Tambah Tes</button>
             </div>
           </div>
         </div>
@@ -184,7 +252,7 @@ class TestCollectionPage extends React.Component {
 
 // Define variables that will be passed to connect method as an argument
 let problemCollectionPageProps = "problemCollectionPage, problemCollectionMaxPage, problemCollectionTotalProblems, problemCollectionTopic, problemCollectionLevel, problemCollection, ";
-let testCollectionPageProps = "testCollection, testCollectionName, "
+let testCollectionPageProps = "testCollection, testCollectionName, testCollectionKeyword, "
 
 export default connect(
   problemCollectionPageProps + testCollectionPageProps + "availableTopics, availableLevels, isLogin, baseUrl, currentPage", actions

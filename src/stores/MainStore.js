@@ -74,7 +74,8 @@ const initialState = {
 
   // Test collection page
   testCollection: [],
-  testCollectionName: ""
+  testCollectionName: "",
+  testCollectionKeyword: ""
 };
 
 export const store = createStore(initialState);
