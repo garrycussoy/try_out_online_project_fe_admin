@@ -458,13 +458,18 @@ class ProblemCollectionPage extends React.Component {
       .then(response => {
         // Set the store using the data returned by the API
         store.setState({
+          // Problem collection props
           problemCollection: response.data.problems_list,
           problemCollectionMaxPage: response.data.max_page,
           availableTopics: response.data.available_topics,
           problemCollectionTopic: response.data.topic_chosen,
           problemCollectionLevel: response.data.level_chosen,
           problemCollectionTotalProblems: response.data.total_problems,
-          currentPage: "problem-collection-page"
+          currentPage: "problem-collection-page",
+
+          // Test collection page
+          testCollection: [],
+          testCollectionName: ""
         })
       })
       .catch(error => {
@@ -603,7 +608,8 @@ class ProblemCollectionPage extends React.Component {
 // Define variables that will be passed to connect method as an argument
 let addProblemPageProps = "addProblemType, addProblemLevel, addProblemTopic, addProblemContent, addProblemContentPreview, addProblemAnswer, addProblemSolution, addProblemSolutionPreview, addProblemFirstOption, addProblemSecondOption, addProblemThirdOption, addProblemFourthOption, ";
 let problemCollectionPageProps = "problemCollectionPage, problemCollectionMaxPage, problemCollectionTotalProblems, problemCollectionTopic, problemCollectionLevel, problemCollection, ";
+let testCollectionPageProps = "testCollection, testCollectionName, "
 
 export default connect(
-  problemCollectionPageProps + addProblemPageProps + "availableTopics, availableLevels, isLogin, baseUrl, currentPage", actions
+  problemCollectionPageProps + addProblemPageProps + testCollectionPageProps + "availableTopics, availableLevels, isLogin, baseUrl, currentPage", actions
 )(withRouter(ProblemCollectionPage));

@@ -70,7 +70,11 @@ const initialState = {
   editProblemFirstOption: "",
   editProblemSecondOption: "",
   editProblemThirdOption: "",
-  editProblemFourthOption: ""
+  editProblemFourthOption: "",
+
+  // Test collection page
+  testCollection: [],
+  testCollectionName: ""
 };
 
 export const store = createStore(initialState);
