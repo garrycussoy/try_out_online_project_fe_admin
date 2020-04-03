@@ -438,3 +438,89 @@
 .status-icon {
     width: 15%;
 }
+
+/* ---------- Test Detail Page ---------- */
+.test-detail-header {
+    padding: 10px;
+    border-bottom: 1px solid #2E279D;
+    text-align: center;
+    color: #2E279D;
+}
+
+.test-detail-title {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.test-detail-time-limit {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.test-detail-characteristic-container {
+    padding-top: 30px;
+    text-align: center;
+    color: #2E279D;
+    font-size: 14px;
+}
+
+.characteristic-table, .characteristic-table th, .characteristic-table td {
+    border: 1px solid #2E279D !important;
+}
+
+.characterisctic-container-bottom-border {
+    border-bottom: 1px solid #2E279D;
+    padding-bottom: 15px;
+    font-weight: 650;
+    text-align: center;
+    color: #2E279D;
+    font-size: 14px;
+}
+
+.test-detail-description-container {
+    border-bottom: 1px solid #2E279D;
+    padding: 10px 10px 15px 10px;
+    color: #2E279D;
+    font-size: 14px;
+}
+
+.test-detail-description {
+    font-weight: 700;
+}
+
+.test-detail-description-box {
+    margin-top: 5px;
+}
+
+.test-detail-problem-table-container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #2E279D;
+    font-size: 14px;
+    text-align: center;
+}
+
+.test-detail-problem-table, .test-detail-problem-table th, .test-detail-problem-table td {
+    border: 1px solid #2E279D !important;
+}
+
+.cell-fix-width-100 {
+    width: 100px;
+}
+
+.cell-min-width-200 {
+    min-width: 200px;
+}
+
+.test-detail-button-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.test-detail-button {
+    font-size: 16px;
+    color: #DFF6F0;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 100px;
+}

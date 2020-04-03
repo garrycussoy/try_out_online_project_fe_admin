@@ -18,7 +18,7 @@ const initialState = {
   isLogin: true,
 
   // Everything related with header
-  currentPage: "problem-collection-page",
+  currentPage: "",
 
   // Problem collection page
   problemCollectionPage: 1,
@@ -75,7 +75,20 @@ const initialState = {
   // Test collection page
   testCollection: [],
   testCollectionName: "",
-  testCollectionKeyword: ""
+  testCollectionKeyword: "",
+
+  // Test detail page
+  testDetailName: "",
+  testDetailTimeLimit: "",
+  testDetailSATotalProblems: 0,
+  testDetailMCTotalProblems: 0,
+  testDetailSACorrectScoring: 0,
+  testDetailMCCorrectScoring: 0,
+  testDetailSAWrongScoring: 0,
+  testDetailMCWrongScoring: 0,
+  testDetailMaximumScore: 0,
+  testDetailDescription: "",
+  testDetailProblems: [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
 };
 
 export const store = createStore(initialState);
