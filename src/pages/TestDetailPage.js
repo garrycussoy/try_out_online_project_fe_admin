@@ -24,6 +24,86 @@ import Header from "../components/Header";
  */
 class TestDetailPage extends React.Component {
   /**
+   * The following method is used to redirect the page into test collection page
+   */
+  backButton = () => {
+    // Set some props to default
+    store.setState({
+      // Test collection props
+      testCollection: [],
+      testCollectionName: "",
+      testCollectionKeyword: ""
+    })
+
+    // Redirect the page
+    this.props.history.push("/test-collection")
+  }
+  
+  /**
+   * The following method is designed to prepare any data before the view is rendered
+   */
+  componentDidMount = async () => {
+    // Check whether the admin has already logged in or not
+    if (this.props.isLogin) {
+      /**
+       * When admin has been logged in, hit related API to get all information needed to be shown in test
+       * detail page
+       */
+      // Get the parameter in URL
+      let matchUrlArray = this.props.match.url.split("/");
+      let matchUrlArrayLength = matchUrlArray.length;
+      let testId = matchUrlArray[matchUrlArrayLength - 1];
+
+      // Define object that will be passed as an argument to axios function
+      const axiosArgs = {
+        method: "get",
+        url: this.props.baseUrl + "test/" + testId,
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+        validateStatus: (status) => {
+          return status < 500
+        }
+      };
+
+      // Hit related API (passed axiosArgs as the argument) and manage the response
+      await axios(axiosArgs)
+      .then(response => {
+        // Set some props using the information given by the API
+        store.setState({
+          // Current page props
+          currentPage: "test-detail-page",
+
+          // Test collection props
+          testCollection: [],
+          testCollectionName: "",
+          testCollectionKeyword: "",
+
+          // Test detail props
+          testDetailName: response.data.name,
+          testDetailTimeLimit: response.data.time_limit,
+          testDetailSATotalProblems: response.data.sa_total_problem,
+          testDetailMCTotalProblems: response.data.mc_total_problem,
+          testDetailSACorrectScoring: response.data.sa_correct_scoring,
+          testDetailMCCorrectScoring: response.data.mc_correct_scoring,
+          testDetailSAWrongScoring: response.data.sa_wrong_scoring,
+          testDetailMCWrongScoring: response.data.mc_wrong_scoring,
+          testDetailMaximumScore: response.data.maximum_score,
+          testDetailDescription: response.data.description,
+          testDetailProblems: response.data.problems
+        })
+      })
+      .catch(error => {
+        console.warn(error);
+      });
+    } else {
+      // Redirect to login page
+      this.props.history.push('/login');
+    }
+  }
+
+  /**
    * The following method is used to render the view of test detail page
    */
   render() {
@@ -43,10 +123,10 @@ class TestDetailPage extends React.Component {
               return (
                 <tr>
                   <td>{order + 1}</td>
-                  <td>VARIABLE</td>
-                  <td>VARIABLE</td>
-                  <td>VARIABLE</td>
-                  <td>VARIABLE</td>
+                  <td>{problem.id}</td>
+                  <td>{problem.problem_type}</td>
+                  <td>{problem.level}</td>
+                  <td>{problem.topic}</td>
                 </tr>
               )
             })
@@ -62,8 +142,8 @@ class TestDetailPage extends React.Component {
         <div className = "container">
           <div className = "row">
             <div className = "col-12 test-detail-header">
-              <span className = "test-detail-title">VARIABLE NAMA UJIAN</span><br />
-              <span className = "test-detail-time-limit">Waktu Pengerjaan : VARIABLE Menit</span>
+              <span className = "test-detail-title">{this.props.testDetailName}</span><br />
+              <span className = "test-detail-time-limit">Waktu Pengerjaan : {this.props.testDetailTimeLimit} Menit</span>
             </div>
             <div className = "col-md-3 col-12"></div>
             <div className = "col-md-6 col-12 test-detail-characteristic-container">
@@ -79,26 +159,26 @@ class TestDetailPage extends React.Component {
                 <tbody>
                   <tr>
                     <td>Isian Singkat</td>
-                    <td>VARIABLE</td>
-                    <td>VARIABLE</td>
-                    <td>VARIABLE</td>
+                    <td>{this.props.testDetailSATotalProblems}</td>
+                    <td>{this.props.testDetailSACorrectScoring}</td>
+                    <td>{this.props.testDetailSAWrongScoring}</td>
                   </tr>
                   <tr>
                     <td>Pilihan Ganda</td>
-                    <td>VARIABLE</td>
-                    <td>VARIABLE</td>
-                    <td>VARIABLE</td>
+                    <td>{this.props.testDetailMCTotalProblems}</td>
+                    <td>{this.props.testDetailMCCorrectScoring}</td>
+                    <td>{this.props.testDetailMCWrongScoring}</td>
                   </tr>
                 </tbody>
               </table>
             </div>
             <div className = "col-md-3 col-12"></div>
             <div className = "col-12 characterisctic-container-bottom-border">
-              Skor Maksimal : VARIABLE
+              Skor Maksimal : {this.props.testDetailMaximumScore}
             </div>
             <div className = "col-12 test-detail-description-container">
               <span className = "test-detail-description">Deskripsi</span>
-              <div className = "test-detail-description-box">VARIABLE VARIABLE VARIABLE</div>
+              <div className = "test-detail-description-box">{this.props.testDetailDescription}</div>
             </div>
           </div>
           <div className = "col-12 test-detail-problem-table-container">
@@ -107,7 +187,7 @@ class TestDetailPage extends React.Component {
           <div className = "col-12 test-detail-button-container">
             <button className = "btn btn-primary test-detail-button">Ubah</button>
             <button className = "btn btn-danger test-detail-button">Hapus</button>
-            <button className = "btn btn-primary test-detail-button">Kembali</button>
+            <button onClick = {() => this.backButton()} className = "btn btn-primary test-detail-button">Kembali</button>
           </div>
         </div>
       </React.Fragment>
