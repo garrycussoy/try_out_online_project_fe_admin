@@ -88,7 +88,11 @@ const initialState = {
   testDetailMCWrongScoring: 0,
   testDetailMaximumScore: 0,
   testDetailDescription: "",
-  testDetailProblems: []
+  testDetailProblems: [],
+
+  // Edit test modal
+  editTestName: "",
+  editTestDescription: ""
 };
 
 export const store = createStore(initialState);

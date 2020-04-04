@@ -18,11 +18,74 @@ import tickIcon from "../images/tick.png";
 
 // Import from other modules
 import Header from "../components/Header";
+import EditTestModal from "../components/EditTestModal";
 
 /**
  * The following class is desingned to handle everything related to Test Detail page
  */
 class TestDetailPage extends React.Component {
+  /**
+   * The following method is designed to remove selected test
+   */
+  removeTestButton = async () => {
+    /**
+       * Hit related API to remove selected test
+       */
+    // Get the parameter in URL
+    let matchUrlArray = this.props.match.url.split("/");
+    let matchUrlArrayLength = matchUrlArray.length;
+    let testId = matchUrlArray[matchUrlArrayLength - 1];
+
+    // Define object that will be passed as an argument to axios function
+    const axiosArgs = {
+      method: "delete",
+      url: this.props.baseUrl + "test/" + testId,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      },
+      validateStatus: (status) => {
+        return status < 500
+      }
+    };
+
+    // Hit related API (passed axiosArgs as the argument) and manage the response
+    await axios(axiosArgs)
+    .then(async (response) => {
+      if (response.status === 200) {
+        // Set some props to default
+        store.setState({
+          testCollectionName: "",
+          testCollectionKeyword: ""
+        })
+
+        // Give success message
+        await Swal.fire({
+          title: 'Sukses',
+          text: 'Berhasil menghapus paket tes',
+          icon: 'success',
+          timer: 3000,
+          confirmButtonText: 'OK'
+        })
+
+        // Redirect to test collection page
+        await this.props.history.push("/test-collection")
+      } else {
+        // Give failure message
+        await Swal.fire({
+          title: 'Gagal Menghapus Tes',
+          text: response.data.message,
+          icon: 'error',
+          timer: 3000,
+          confirmButtonText: 'OK'
+        })
+      }
+    })
+    .catch(error => {
+      console.warn(error);
+    });
+  }
+  
   /**
    * The following method is used to redirect the page into test collection page
    */
@@ -91,7 +154,11 @@ class TestDetailPage extends React.Component {
           testDetailMCWrongScoring: response.data.mc_wrong_scoring,
           testDetailMaximumScore: response.data.maximum_score,
           testDetailDescription: response.data.description,
-          testDetailProblems: response.data.problems
+          testDetailProblems: response.data.problems,
+
+          // Edit test props
+          editTestName: response.data.name,
+          editTestDescription: response.data.description
         })
       })
       .catch(error => {
@@ -185,10 +252,11 @@ class TestDetailPage extends React.Component {
             {problems}
           </div>
           <div className = "col-12 test-detail-button-container">
-            <button className = "btn btn-primary test-detail-button">Ubah</button>
-            <button className = "btn btn-danger test-detail-button">Hapus</button>
+            <button data-toggle = "modal" data-target = "#editTest" className = "btn btn-primary test-detail-button">Ubah</button>
+            <button onClick = {() => this.removeTestButton()} className = "btn btn-danger test-detail-button">Hapus</button>
             <button onClick = {() => this.backButton()} className = "btn btn-primary test-detail-button">Kembali</button>
           </div>
+          <EditTestModal />
         </div>
       </React.Fragment>
     )
@@ -198,7 +266,8 @@ class TestDetailPage extends React.Component {
 // Define variables that will be passed to connect method as an argument
 let testCollectionPageProps = "testCollection, testCollectionName, testCollectionKeyword, ";
 let testDetailPageProps = "testDetailName, testDetailTimeLimit, testDetailSATotalProblems, testDetailMCTotalProblems, testDetailSACorrectScoring, testDetailMCCorrectScoring, testDetailSAWrongScoring, testDetailMCWrongScoring, testDetailMaximumScore, testDetailDescription, testDetailProblems, ";
+let editTestModalProps = "editTestName, editTestDescription, "
 
 export default connect(
-  testCollectionPageProps + testDetailPageProps + "isLogin, baseUrl, currentPage", actions
+  testCollectionPageProps + testDetailPageProps + editTestModalProps + "isLogin, baseUrl, currentPage", actions
 )(withRouter(TestDetailPage));

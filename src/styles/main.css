@@ -524,3 +524,39 @@
     margin-right: 10px;
     width: 100px;
 }
+
+/* ---------- Edit Test Modal ---------- */
+.edit-test-header {
+    font-size: 20px;
+    padding: 20px 0px 0px 0px;
+    font-weight: 700;
+    text-align: center;
+    border-bottom: 1px solid #2E279D;
+    color: #2E279D;
+}
+
+.edit-test-container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 16px;
+    color: #2E279D;
+    text-align: center;
+}
+
+.edit-test-name-input {
+    margin-top: 15px;
+}
+
+.edit-test-description-input {
+    resize: none;
+    height: 100px;
+    margin-bottom: 15px;
+}
+
+.edit-test-button {
+    font-size: 16px;
+    color: #DFF6F0;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 80px;
+}
