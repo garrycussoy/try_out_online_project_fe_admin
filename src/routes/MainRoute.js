@@ -14,6 +14,7 @@ import ProblemDetailPage from "../pages/ProblemDetailPage";
 import AddProblemPage from "../pages/AddProblemPage";
 import EditProblemPage from "../pages/EditProblemPage";
 import TestCollectionPage from "../pages/TestCollectionPage";
+import TestDetailPage from "../pages/TestDetailPage";
 
 /**
  * The following function is used for routing
@@ -29,6 +30,7 @@ const Mainroute = () => {
           <Route exact path = "/problem/add" component = {AddProblemPage} />
           <Route exact path = "/problem/edit/:problemId" component = {EditProblemPage} />
           <Route exact path = "/test-collection" component = {TestCollectionPage} />
+          <Route exact path = "/test/detail/:testId" component = {TestDetailPage} />
         </Switch>
       </BrowserRouter>
     </Provider>
