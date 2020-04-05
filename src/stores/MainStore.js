@@ -15,7 +15,7 @@ const initialState = {
   // Login related
   username: "",
   password: "",
-  isLogin: true,
+  isLogin: false,
 
   // Everything related with header
   currentPage: "",

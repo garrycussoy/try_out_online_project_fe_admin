@@ -435,6 +435,10 @@
     max-width: 100px;
 }
 
+.each-test-data-status:hover {
+    cursor: pointer;
+}
+
 .status-icon {
     width: 15%;
 }
