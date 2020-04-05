@@ -79,7 +79,7 @@ const initialState = {
 
   // Test detail page
   testDetailName: "",
-  testDetailTimeLimit: "",
+  testDetailTimeLimit: 0,
   testDetailSATotalProblems: 0,
   testDetailMCTotalProblems: 0,
   testDetailSACorrectScoring: 0,
@@ -92,7 +92,19 @@ const initialState = {
 
   // Edit test modal
   editTestName: "",
-  editTestDescription: ""
+  editTestDescription: "",
+
+  // Add test page
+  addTestName: "",
+  addTestStatus: false,
+  addTestDescription: "",
+  addTestTimeLimit: 0,
+  addTestSACorrectScoring: 0,
+  addTestMCCorrectScoring: 0,
+  addTestSAWrongScoring: 0,
+  addTestMCWrongScoring: 0,
+  addTestProblems: [],
+  addTestProblemId: ""
 };
 
 export const store = createStore(initialState);
