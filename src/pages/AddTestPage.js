@@ -12,6 +12,8 @@ import Latex from "react-latex";
 // Import everything related to style
 import "../styles/bootstrap.min.css";
 import "../styles/main.css";
+import addIcon from "../images/plus.png";
+import removeIcon from "../images/bin.png";
 
 /**
  * The following class is desingned to handle everything related to Add Test page
@@ -20,7 +22,43 @@ class AddTestPage extends React.Component {
   /**
    * The following method is designed to render the view of add test page
    */
-  render() {    
+  render() {
+    // Define jsx variable that will provide all problems in the test
+    let addTestProblems = (
+      <React.Fragment>
+        <table className = "table table-bordered add-test-problem-table">
+          <thead>
+            <tr>
+              <th className = "cell-fix-width-100">Nomor</th>
+              <th className = "cell-fix-width-100">Problem ID</th>
+              <th>Tipe</th>
+              <th>Level</th>
+              <th className = "cell-min-width-200">Topik</th>
+              <th className = "cell-fix-width-100">Batal</th>
+            </tr>
+          </thead>
+          <tbody>
+            {
+              [1, 2, 3].map((element, index) => {
+                return (
+                  <tr>
+                    <td>{index + 1}</td>
+                    <td>VARIABLE</td>
+                    <td>VARIABLE</td>
+                    <td>VARIABLE</td>
+                    <td>VARIABLE</td>
+                    <td>
+                      <img alt = "Remove Problem Icon" src = {removeIcon} className = "add-test-remove-problem-icon" />
+                    </td>
+                  </tr>
+                )
+              })
+            }
+          </tbody>
+        </table>
+      </React.Fragment>
+    )
+
     // Return the view of add problem page
     return (
       <React.Fragment>
@@ -48,6 +86,20 @@ class AddTestPage extends React.Component {
                 <input className = "form-control second-type-input" placeholder = "Skor Benar" name = "addTestMCCorrectScoring"></input>
                 <input className = "form-control second-type-input" placeholder = "Skor Salah" name = "addTestMCWrongScoring"></input><br />
                 <span>Skor benar dan skor salah harus berupa bilangan bulat</span>
+              </div>
+              <div className = "col-12 col-md-8 add-test-choose-problem-bar">
+                <span className = "add-test-choose-problem-title">Pilih Soal</span>
+                <input className = "form-control third-type-input" placeholder = "Masukkan Problem ID"></input>
+                <img className = "add-test-add-problem-icon" alt = "Add Icon" src = {addIcon} />
+              </div>
+              <div className = "col-12 col-md-4 add-test-post-test">
+                <button className = "btn btn-primary" type = "submit">Tambah Tes</button>
+              </div>
+              <div className = "col-12 add-test-problem-table-container">
+                {addTestProblems}
+              </div>
+              <div className = "col-12 add-test-back-button-container">
+                <button className = "btn btn-danger">Batal</button>
               </div>
             </div>
           </div>
