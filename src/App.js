@@ -1,25 +1,16 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+// Import from standard libraries
+import React from "react";
+import Mainroute from "./routes/MainRoute";
 
+// Import everything related to style
+import "./styles/bootstrap.min.css"
+
+/**
+ * The following function is the main function to run the app
+ */
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Mainroute />
   );
 }
 

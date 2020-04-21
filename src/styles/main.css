@@ -1,0 +1,693 @@
+/* ---------- General Notes ---------- */
+/* Use the following colour pallete (the order is sorted from the brighter to darker) */
+/* 1. #DFF6F0 */
+/* 2. #46B3E6 */
+/* 3. #4D80E4 */
+/* 4. #2E279D */
+
+/* ---------- Header ---------- */
+.header {
+    background-color: #46B3E6;
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.35);
+    position: sticky;
+}
+
+.logo-in-header {
+    width: 80%;
+    margin: 10px 15px;
+}
+
+.tabs-container-ul {
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+.tabs-container-ul li {
+    display: inline-block;
+    margin: 27px 15px 25px 15px;
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.tab-in-header {
+    color: #2E279D;
+}
+
+.tab-in-header:hover {
+    text-decoration: none;
+    color: #DFF6F0;
+}
+
+.active-tab {
+    color: #DFF6F0;
+}
+
+/* ---------- Login Session ---------- */
+.login-form-container {
+    margin-top: 180px;
+    padding: 20px 20px 10px 20px;
+    border-radius: 15px;
+    background-color: #46B3E6;
+    color: #2E279D;
+    text-align: center;
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.35);
+}
+
+.login-admin-title {
+    font-size: 20px;
+    font-weight: 800;
+    margin-bottom: 20px;
+}
+
+.login-form-input {
+    margin: 20px 0;
+}
+
+.login-button {
+    font-size: 16px;
+    color: #DFF6F0;
+}
+
+/* ---------- Problem Collection Page ---------- */
+.second-header-container {
+    border-bottom: 1px solid #2E279D;
+    padding-bottom: 10px;
+}
+
+.search-bar {
+    margin-top: 15px;
+    margin-right: 10px;
+    font-size: 16px;
+    color: #2E279D;
+    width: 200px !important;
+}
+
+.problem-collection-title-container {
+    margin-top: 10px;
+    text-align: center;
+}
+
+.problem-collection-title {
+    font-size: 20px;
+    margin: 1px 0;
+    color: #2E279D;
+}
+
+.page-detail {
+    font-size: 16px;
+    margin: 1px 0;
+    color: #2E279D;
+}
+
+.add-problem-button-container {
+    margin-top: 15px;
+    text-align: right;
+}
+
+.add-problem-button {
+    font-size: 16px;
+    color: #DFF6F0;
+}
+
+/* ----- Each Problems Container in Problem Collection Page ----- */
+.each-problem-container {
+    margin-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 10px;
+    color: #2E279D;
+    font-size: 14px;
+    border-bottom: 1px solid #2E279D;
+}
+
+.each-problem-information {
+    margin-bottom: 10px;
+}
+
+.each-problem-information span {
+    font-weight: 700;
+}
+
+.each-problem-icons {
+    text-align: right;
+}
+
+.each-problem-icons img {
+    cursor: pointer;
+    width: 4%;
+    margin-left: 15px;
+}
+
+.each-problem-statement {
+    margin-bottom: 10px;
+}
+
+.each-answer {
+    font-weight: 700;
+    color: green;
+}
+
+.each-other-option {
+    font-weight: 700;
+}
+
+/* ----- Pagination ----- */
+.pagination-container {
+    margin-top: 10px;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.footer-container img:hover {
+    cursor: pointer;
+}
+
+.footer-container span {
+    font-size: 14px;
+    color: #2E279D;
+}
+
+.pagination-icon {
+    width: 1%;
+}
+
+.page-information {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.problem-not-found-container {
+    margin-top: 150px;
+}
+
+.problem-not-found  {
+    font-size: 16px;
+    color: #2E279D;
+}
+
+/* ---------- Problem Detail Page ---------- */
+.problem-information-container {
+    margin-top: 15px;
+    text-align: center;
+    font-size: 16px;
+    color: #2E279D;
+    border-bottom: 1px solid #2E279D;
+    padding-bottom: 10px;
+}
+
+.problem-id-and-type {
+    font-weight: 800;
+}
+
+.problem-level-and-topic {
+    font-weight: 600;
+}
+
+.problem-content-container, .problem-solution-container {
+    padding: 10px;
+    font-size: 14px;
+    color: #2E279D;
+    border-bottom: 1px solid #2E279D;
+}
+
+.problem-title {
+    font-weight: 700;
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.problem-content {
+    display: inline-block;
+    margin-bottom: 15px;
+}
+
+.problem-answer {
+    font-weight: 700;
+    color: green;
+}
+
+.problem-other-options {
+    font-weight: 700;
+}
+
+.problem-back-button-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.problem-back-button {
+    font-size: 16px;
+    color: #DFF6F0;
+}
+
+/* ---------- Add & Edit Problem Page ---------- */
+.add-problem-title-container {
+    margin-top: 15px;
+    font-weight: 600;
+    text-align: center;
+    font-size: 20px;
+    color: #2E279D;
+    padding-bottom: 10px;
+}
+
+.edit-problem-id {
+    font-size: 16px;
+    font-weight: 700;
+}
+
+/* ----- First Layer ----- */
+.add-problem-first-layer {
+    padding: 20px 10px 10px 25px;
+    font-size: 14px;
+    color: #2E279D;
+    border-top: 1px solid #2E279D;
+    border-bottom: 1px solid #2E279D;
+}
+
+.add-problem-first-layer-input {
+    width: 40%;
+    font-size: 14px;
+    display: inline-block;
+    margin-bottom: 10px;
+    margin-right: 50px;
+}
+
+/* ----- Second & Third Layer ----- */
+.add-problem-second-layer, .add-problem-third-layer {
+    padding: 10px 10px 20px 10px;
+    font-size: 14px;
+    color: #2E279D;
+    border-bottom: 1px solid #2E279D;
+}
+
+.add-problem-text-area label {
+    font-weight: 700;
+    padding: 10px 0;
+}
+
+.add-problem-text-area textarea {
+    resize: none;
+    font-size: 14px;
+    width: 100%;
+    height: 300px;
+}
+
+.add-problem-preview label {
+    font-weight: 700;
+    padding: 10px 0;
+}
+
+.add-problem-content-preview, .add-problem-solution-preview {
+    width: 100%;
+    height: 300px;
+    border: 1px solid #2E279D;
+    border-radius: 5px;
+    padding: 10px;
+}
+
+.add-problem-preview-button {
+    padding: 10px 10px 0 10px;
+    text-align: center;
+}
+
+.add-problem-preview-button button {
+    font-size: 14px;
+    color: #DFF6F0;
+}
+
+/* ----- Fourth Layer ----- */
+.add-problem-fourth-layer {
+    padding: 20px 10px 10px 10px;
+    font-size: 14px;
+    color: #2E279D;
+    border-bottom: 1px solid #2E279D;
+}
+
+.add-problem-option-container {
+    text-align: center;
+}
+
+.add-problem-input-option-answer {
+    width: 100%;
+    font-size: 14px;
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+.add-problem-input-other-option {
+    margin-top: 45px;
+}
+
+/* ----- Fourth Layer ----- */
+.add-problem-fifth-layer {
+    padding: 20px 10px 20px 10px;
+    font-size: 14px;
+    color: #2E279D;
+    text-align: center;
+}
+
+.add-problem-fifth-layer button {
+    margin: 0 10px;
+    width: 100px;
+    font-size: 14px;
+    color: #DFF6F0;
+}
+
+/* ---------- Test Collection Page ---------- */
+.test-collection-second-header-container {
+    border-bottom: 1px solid #2E279D;
+    padding: 0px 10px 10px 10px;
+}
+
+.test-collection-search-bar-container {
+    padding: 15px 10px 10px 10px;
+}
+
+.test-collection-search-bar {
+    width: 80% !important;
+    font-size: 16px;
+    color: #2E279D;
+}
+
+.test-collection-search-bar-container img {
+    width: 10%;
+    margin-left: 5px;
+}
+
+.test-collection-search-bar-container img:hover {
+    width: 10%;
+    margin-left: 5px;
+    cursor: pointer;
+}
+
+.test-collection-title-container {
+    text-align: center;
+    color: #2E279D;
+    padding-top: 10px;
+}
+
+.test-collection-title {
+    margin: 1px 0;
+    font-size: 20px;
+}
+
+.test-collection-below-title {
+    text-align: center;
+    color: #2E279D;
+    font-size: 16px;
+    margin: 0px;
+    padding: 0px;
+}
+
+.add-test-button-container {
+    padding: 15px 10px 10px 10px;
+    text-align: right;
+}
+
+.add-test-button-container button {
+    font-size: 16px;
+    color: #DFF6F0;
+}
+
+.test-collection-container {
+    padding-top: 20px;
+    text-align: center;
+    color: #2E279D;
+    font-size: 14px;
+}
+
+.test-collection-container table, .test-collection-container th, .test-collection-container td {
+    border: 1px solid #2E279D !important;
+}
+
+/* ----- Test Collection Table ----- */
+.each-test-data-name {
+    min-width: 450px;
+}
+
+.each-test-data-name:hover {
+    cursor: pointer;
+    color: #4D80E4;
+}
+
+.each-test-data-status {
+    max-width: 100px;
+}
+
+.each-test-data-status:hover {
+    cursor: pointer;
+}
+
+.status-icon {
+    width: 15%;
+}
+
+/* ---------- Test Detail Page ---------- */
+.test-detail-header {
+    padding: 10px;
+    border-bottom: 1px solid #2E279D;
+    text-align: center;
+    color: #2E279D;
+}
+
+.test-detail-title {
+    font-weight: 700;
+    font-size: 20px;
+}
+
+.test-detail-time-limit {
+    font-weight: 600;
+    font-size: 16px;
+}
+
+.test-detail-characteristic-container {
+    padding-top: 30px;
+    text-align: center;
+    color: #2E279D;
+    font-size: 14px;
+}
+
+.characteristic-table, .characteristic-table th, .characteristic-table td {
+    border: 1px solid #2E279D !important;
+}
+
+.characterisctic-container-bottom-border {
+    border-bottom: 1px solid #2E279D;
+    padding-bottom: 15px;
+    font-weight: 650;
+    text-align: center;
+    color: #2E279D;
+    font-size: 14px;
+}
+
+.test-detail-description-container {
+    border-bottom: 1px solid #2E279D;
+    padding: 10px 10px 15px 10px;
+    color: #2E279D;
+    font-size: 14px;
+}
+
+.test-detail-description {
+    font-weight: 700;
+}
+
+.test-detail-description-box {
+    margin-top: 5px;
+}
+
+.test-detail-problem-table-container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    color: #2E279D;
+    font-size: 14px;
+    text-align: center;
+}
+
+.test-detail-problem-table, .test-detail-problem-table th, .test-detail-problem-table td {
+    border: 1px solid #2E279D !important;
+}
+
+.cell-fix-width-100 {
+    width: 100px;
+}
+
+.cell-min-width-200 {
+    min-width: 200px;
+}
+
+.test-detail-button-container {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.test-detail-button {
+    font-size: 16px;
+    color: #DFF6F0;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 100px;
+}
+
+/* ---------- Edit Test Modal ---------- */
+.edit-test-header {
+    font-size: 20px;
+    padding: 20px 0px 0px 0px;
+    font-weight: 700;
+    text-align: center;
+    border-bottom: 1px solid #2E279D;
+    color: #2E279D;
+}
+
+.edit-test-container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    font-size: 16px;
+    color: #2E279D;
+    text-align: center;
+}
+
+.edit-test-name-input {
+    margin-top: 15px;
+}
+
+.edit-test-description-input {
+    resize: none;
+    height: 100px;
+    margin-bottom: 15px;
+}
+
+.edit-test-button {
+    font-size: 16px;
+    color: #DFF6F0;
+    margin-left: 10px;
+    margin-right: 10px;
+    width: 80px;
+}
+
+/* ---------- Add Test Page ---------- */
+/* ----- Input ------ */
+.first-type-input {
+    width: 40%;
+    font-size: 14px;
+    display: inline-block;
+    margin-right: 100px;
+    margin-bottom: 15px;
+}
+
+.second-type-input {
+    width: 20%;
+    font-size: 14px;
+    display: inline-block;
+    margin-right: 49px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.third-type-input {
+    width: 30%;
+    font-size: 14px;
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.checkbox-type-input {
+    height: 30px;
+    width: 30px;
+    margin-right: 5px;
+    position: relative;
+    top: 10px;
+}
+
+.textarea-type-input {
+    margin-top: 5px;
+    height: 100px;
+    resize: none;
+}
+
+/* ----- First Layer ----- */
+.add-test-header-container {
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 20px;
+    color: #2E279D;
+    border-bottom: 1px solid #2E279D;
+}
+
+.add-test-first-layer {
+    padding: 15px 20px 20px 20px;
+    font-size: 14px;
+    color: #2E279D;
+    border-bottom: 1px solid #2E279D;
+}
+
+.add-test-description {
+    font-weight: 700;
+}
+
+.add-test-sub-header-left {
+    font-weight: 700;
+    margin-right: 455px;
+}
+
+/* ----- Second Layer ------ */
+.add-test-choose-problem-title {
+    font-weight: 700;
+    margin-right: 20px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #2E279D;
+}
+
+.add-test-post-test {
+    margin-top: 10px;
+    text-align: right;
+}
+
+.add-test-add-problem-icon {
+    width: 4%;
+    position: relative;
+    bottom: 1.5px;
+}
+
+.add-test-add-problem-icon:hover {
+    cursor: pointer;
+}
+
+.add-test-post-test button {
+    font-size: 14px;
+    color: #DFF6F0;
+    width: 100px;
+}
+
+.add-test-problem-table-container {
+    padding: 20px 20px 5px 20px;
+    font-size: 14px;
+    color: #2E279D;
+    text-align: center;
+}
+
+.add-test-problem-table, .add-test-problem-table th, .add-test-problem-table td {
+    border: 1px solid #2E279D !important;
+}
+
+.add-test-back-button-container {
+    text-align: center;
+}
+
+.add-test-back-button-container button {
+    font-size: 14px;
+    color: #DFF6F0;
+    width: 100px;
+}
+
+.add-test-remove-problem-icon {
+    width: 35%;
+    height: 4%;
+}
+
+.add-test-remove-problem-icon:hover {
+    cursor: pointer;
+}
