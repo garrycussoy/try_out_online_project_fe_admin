@@ -6,7 +6,8 @@ import Swal from "sweetalert2";
 // Define all variable needed to be used globally
 const initialState = {
   // Base URL for backend API
-  baseUrl: "http://localhost:5000/",
+  // baseUrl: "http://localhost:5000/",
+  baseUrl: "https://mathemaniac-online-try-out-api.herokuapp.com/",
   
   // General props than often used accross pages
   availableTopics: [],
