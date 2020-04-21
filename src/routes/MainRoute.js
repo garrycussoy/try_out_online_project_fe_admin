@@ -25,7 +25,7 @@ const Mainroute = () => {
     <Provider store={store}>
       <BrowserRouter>
         <Switch>
-          <Route exact path = "/login" component = {LoginPage} />
+          <Route exact path = "/" component = {LoginPage} />
           <Route exact path = "/problem-collection" component = {ProblemCollectionPage} />
           <Route exact path = "/problem/detail/:problemId" component = {ProblemDetailPage} />
           <Route exact path = "/problem/add" component = {AddProblemPage} />
