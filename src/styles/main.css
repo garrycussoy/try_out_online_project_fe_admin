@@ -435,6 +435,10 @@
     max-width: 100px;
 }
 
+.each-test-data-status:hover {
+    cursor: pointer;
+}
+
 .status-icon {
     width: 15%;
 }
@@ -559,4 +563,131 @@
     margin-left: 10px;
     margin-right: 10px;
     width: 80px;
+}
+
+/* ---------- Add Test Page ---------- */
+/* ----- Input ------ */
+.first-type-input {
+    width: 40%;
+    font-size: 14px;
+    display: inline-block;
+    margin-right: 100px;
+    margin-bottom: 15px;
+}
+
+.second-type-input {
+    width: 20%;
+    font-size: 14px;
+    display: inline-block;
+    margin-right: 49px;
+    margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+.third-type-input {
+    width: 30%;
+    font-size: 14px;
+    display: inline-block;
+    margin-right: 10px;
+    margin-top: 10px;
+}
+
+.checkbox-type-input {
+    height: 30px;
+    width: 30px;
+    margin-right: 5px;
+    position: relative;
+    top: 10px;
+}
+
+.textarea-type-input {
+    margin-top: 5px;
+    height: 100px;
+    resize: none;
+}
+
+/* ----- First Layer ----- */
+.add-test-header-container {
+    padding: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+    font-size: 20px;
+    color: #2E279D;
+    border-bottom: 1px solid #2E279D;
+}
+
+.add-test-first-layer {
+    padding: 15px 20px 20px 20px;
+    font-size: 14px;
+    color: #2E279D;
+    border-bottom: 1px solid #2E279D;
+}
+
+.add-test-description {
+    font-weight: 700;
+}
+
+.add-test-sub-header-left {
+    font-weight: 700;
+    margin-right: 455px;
+}
+
+/* ----- Second Layer ------ */
+.add-test-choose-problem-title {
+    font-weight: 700;
+    margin-right: 20px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: #2E279D;
+}
+
+.add-test-post-test {
+    margin-top: 10px;
+    text-align: right;
+}
+
+.add-test-add-problem-icon {
+    width: 4%;
+    position: relative;
+    bottom: 1.5px;
+}
+
+.add-test-add-problem-icon:hover {
+    cursor: pointer;
+}
+
+.add-test-post-test button {
+    font-size: 14px;
+    color: #DFF6F0;
+    width: 100px;
+}
+
+.add-test-problem-table-container {
+    padding: 20px 20px 5px 20px;
+    font-size: 14px;
+    color: #2E279D;
+    text-align: center;
+}
+
+.add-test-problem-table, .add-test-problem-table th, .add-test-problem-table td {
+    border: 1px solid #2E279D !important;
+}
+
+.add-test-back-button-container {
+    text-align: center;
+}
+
+.add-test-back-button-container button {
+    font-size: 14px;
+    color: #DFF6F0;
+    width: 100px;
+}
+
+.add-test-remove-problem-icon {
+    width: 35%;
+    height: 4%;
+}
+
+.add-test-remove-problem-icon:hover {
+    cursor: pointer;
 }

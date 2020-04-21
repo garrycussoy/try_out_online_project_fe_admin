@@ -6,7 +6,8 @@ import Swal from "sweetalert2";
 // Define all variable needed to be used globally
 const initialState = {
   // Base URL for backend API
-  baseUrl: "http://localhost:5000/",
+  // baseUrl: "http://localhost:5000/",
+  baseUrl: "https://mathemaniac-online-try-out-api.herokuapp.com/",
   
   // General props than often used accross pages
   availableTopics: [],
@@ -15,7 +16,7 @@ const initialState = {
   // Login related
   username: "",
   password: "",
-  isLogin: true,
+  isLogin: false,
 
   // Everything related with header
   currentPage: "",
@@ -79,7 +80,7 @@ const initialState = {
 
   // Test detail page
   testDetailName: "",
-  testDetailTimeLimit: "",
+  testDetailTimeLimit: 0,
   testDetailSATotalProblems: 0,
   testDetailMCTotalProblems: 0,
   testDetailSACorrectScoring: 0,
@@ -92,7 +93,19 @@ const initialState = {
 
   // Edit test modal
   editTestName: "",
-  editTestDescription: ""
+  editTestDescription: "",
+
+  // Add test page
+  addTestName: "",
+  addTestStatus: false,
+  addTestDescription: "",
+  addTestTimeLimit: 0,
+  addTestSACorrectScoring: 0,
+  addTestMCCorrectScoring: 0,
+  addTestSAWrongScoring: 0,
+  addTestMCWrongScoring: 0,
+  addTestProblems: [],
+  addTestProblemId: ""
 };
 
 export const store = createStore(initialState);

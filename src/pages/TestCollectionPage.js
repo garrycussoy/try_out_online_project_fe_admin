@@ -118,6 +118,78 @@ class TestCollectionPage extends React.Component {
   }
   
   /**
+   * The following method is designed to convert is_show variable into appropriate icon
+   * @param {bool} status is_show variable that want to be converted
+   * @param {integer} testId ID  of selected test
+   * @param {string} name Name of selected test
+   * @param {description} description Description of selected test
+   */
+  isShowSwitch = async (testId, status, name, description) => {
+    // Swith the value of isShow
+    let isShow = false;
+    if (status === false) {
+      isShow = true;
+    }
+
+    /**
+     * Hit edit test endpoint
+     */
+    // Define object that will be passed as an argument to axios function
+    const axiosArgs = {
+      method: "put",
+      url: this.props.baseUrl + "test/" + testId,
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("token")}`
+      },
+      data: {
+        is_show: isShow,
+        name: name,
+        description: description
+      },
+      validateStatus: (status) => {
+        return status < 500
+      }
+    };
+
+    // Hit related API (passed axiosArgs as the argument) and manage the response
+    await axios(axiosArgs)
+    .then(async (response) => {
+      /**
+       * Hit endpoint in API to get all tests available
+       */
+      // Define object that will be passed as an argument to axios function
+      const axiosArgs = {
+        method: "get",
+        url: this.props.baseUrl + "test",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`
+        },
+        validateStatus: (status) => {
+          return status < 500
+        }
+      };
+
+      // Hit related API (passed axiosArgs as the argument) and manage the response
+      await axios(axiosArgs)
+      .then(response => {
+        // Set the store using the data returned by the API
+        store.setState({
+          // Test collection props
+          testCollection: response.data,
+        })
+      })
+      .catch(error => {
+        console.warn(error);
+      });
+    })
+    .catch(error => {
+      console.warn(error);
+    });
+  }
+
+  /**
    * The following method is designed to prepare any information needed before the test collection page is 
    * rendered
    */
@@ -191,7 +263,7 @@ class TestCollectionPage extends React.Component {
                   <tr className = "each-test-data">
                     <td>{test.id}</td>
                     <td onClick = {() => this.testDetail(test.id)} className = "each-test-data-name">{test.name}</td>
-                    <td className = "each-test-data-status">{this.isShowConverter(test.is_show)}</td>
+                    <td onClick = {() => this.isShowSwitch(test.id, test.is_show, test.name, test.description)} className = "each-test-data-status">{this.isShowConverter(test.is_show)}</td>
                     <td>{test.time_limit}</td>
                     <td>{test.maximum_score}</td>
                     <td>{test.mc_total_problem}</td>
